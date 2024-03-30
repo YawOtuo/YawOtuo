@@ -1,12 +1,14 @@
+"use client"
 import ExperienceCard from "./ExperienceCard";
-import { mockExperience } from "./data";
+import useExperienceData from "./useExperience";
 
 function Experience() {
+    const {experienceData, loading, error} = useExperienceData()
   return (
     <div className="flex flex-col gap-10 ">
       <h1 className="title">Experience</h1>
       <div className="hidden lg:flex flex-col">
-        {mockExperience.map((r, index) => (
+        {experienceData?.map((r, index) => (
           <div
             className={`grid grid-cols-2
             ${index % 2 !== 0 ? " justify-items-start" : "justify-items-end"}
@@ -20,7 +22,7 @@ function Experience() {
         ))}
       </div>
       <div className="flex  flex-col gap-10 lg:hidden">
-        {mockExperience.map((r, index) => (
+        {experienceData?.map((r, index) => (
           <div
             className={`flex flex-col gap-10
             `}
