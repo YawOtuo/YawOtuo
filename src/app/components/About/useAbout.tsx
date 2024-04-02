@@ -1,20 +1,21 @@
-// useExperienceData.js
+// useaboutData.js
 
 "use client"
-import { fetchExperienceData } from '@/app/apis';
+import { fetchAboutData } from '@/app/apis';
 import { useEffect, useState } from 'react';
 
 // Custom hook for fetching experience data from Sanity.io
-const useExperienceData = () => {
-  const [experienceData, setExperienceData] = useState([]);
+const useAboutData = () => {
+  const [aboutData, setaboutData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     // Fetch data from Sanity.io using the fetch function
-    fetchExperienceData()
+    fetchAboutData()
       .then((data) => {
-        setExperienceData(data);
+        setaboutData(data[0]);
+        console.log(data[0])
         setLoading(false);
       })
       .catch((error) => {
@@ -23,7 +24,7 @@ const useExperienceData = () => {
       });
   }, []);
 
-  return { experienceData, loading, error };
+  return { aboutData, loading, error };
 };
 
-export default useExperienceData;
+export default useAboutData;
