@@ -7,7 +7,7 @@ function Experience() {
   return (
     <div className="flex flex-col gap-10 ">
       <h1 className="title">Experience</h1>
-      <div className="hidden lg:flex flex-col">
+      <div className="hidden lg:flex flex-col gap-10">
         {experienceData?.map((r, index) => (
           <div
             className={`grid grid-cols-2

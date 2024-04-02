@@ -30,3 +30,16 @@ export const fetchAboutData = async () => {
     return [];
   }
 };
+
+
+
+export const fetchProjectsData = async () => {
+  try {
+    // Fetch data from Sanity.io
+    const data = await client.fetch('*[_type == "project"]');
+    return data;
+  } catch (error) {
+    console.error('Error fetching data from Sanity.io:', error);
+    return [];
+  }
+};

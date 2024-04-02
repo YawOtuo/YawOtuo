@@ -19,21 +19,27 @@ function ExperienceCard({ data }: Props) {
   return (
     <div className="border-white  border-[5px] rounded-2xl w-fit px-10 py-10">
       <div className="flex flex-col gap-5">
-        <div className="flex items-center gap-5 text-lg">
+        <div className="flex items-center gap-1 text-lg">
           {/* <div className="relative w-full aspect-square max-w-[100px]">
             <Image src={data?.logo} fill alt="log" />{" "}
           </div> */}
-          <LuCompass color="white" size="30" />
-
-          <p className="">{data?.title}</p>
-          <p>@ {data?.company}</p>
+          <div >
+            <LuCompass color="white" size="30" />
+          </div>
+          <p className=" pl-2 font-semibold">{data?.role}</p>
+          <p className=" font-semibold text-base">@ {data?.company}</p>
         </div>
-        <div className="flex gap-5 items-center text-md">
+        {/* <div className="flex gap-5 items-center text-md">
           <MdOutlinePersonOutline color="white" />
-          <p>{data?.position}</p>
-        </div>{" "}
-        <p>{data?.position}</p>
-        <p>{data?.position}</p>
+          <p>{data?.company}</p>
+        </div>{" "} */}
+        <div className="flex gap-3 items-start text-sm text-yellow-600">
+          {" "}
+          <p>{data?.startDate}</p>
+          <p>-</p>
+          <p>{data?.endDate}</p>
+        </div>
+        <p>{data?.description}</p>
         <p>{data?.duration}</p>
       </div>
     </div>

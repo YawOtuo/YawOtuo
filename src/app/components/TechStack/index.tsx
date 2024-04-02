@@ -1,7 +1,8 @@
-
-'use client'
+"use client";
+import { Swiper, SwiperSlide } from "swiper/react";
 import useAboutData from "../About/useAbout";
 import TSPill from "./TSPill";
+import { FreeMode } from "swiper/modules";
 
 function chunkArray(array: any, chunkSize: any) {
   const chunks = [];
@@ -14,22 +15,36 @@ function chunkArray(array: any, chunkSize: any) {
 function TechStack() {
   const { aboutData } = useAboutData();
 
-  const chunkedTData = chunkArray(aboutData?.techStack, 5); // Change 5 to your desired chunk size
+  const chunkedTData = chunkArray(aboutData?.techStack, 4); // Change 5 to your desired chunk size
 
   return (
-    <div className="flex flex-col gap-5 lg:w-[70%] items-start min-h-[100vh] justify-center">
+    <div className="flex flex-col gap-5 w-full items-start min-h-[100vh] justify-center">
       <p className="title mb-10">Tech Stack</p>
-      <div className="flex flex-col gap-10 items-start">
+      <div className="flex flex-col gap-10 items-start w-full">
         {chunkedTData.map((chunk, index) => (
-          <div
-            className="flex items-center gap-5 justify-center flex-wrap"
-            key={index}>
+          <Swiper
+            key={index}
+            className="w-full"
+            breakpoints={{
+              // Define breakpoints here
+
+              768: { slidesPerView: 1}, // Example breakpoint for screen width <= 768px
+              1024: { slidesPerView: 3 }, // Example breakpoint for screen width <= 1024px
+            }}
+            modules={[FreeMode]}
+            spaceBetween={50}>
             {chunk.map((tech: any, idx: number) => (
-              <div key={idx} className="">
-                <TSPill data={tech} />
-              </div>
+              <SwiperSlide key={index} className="w-fit">
+                <div
+                  className="w-fit"
+                  key={index}>
+                  <div key={idx} className="">
+                    <TSPill data={tech} />
+                  </div>
+                </div>
+              </SwiperSlide>
             ))}
-          </div>
+          </Swiper>
         ))}
       </div>
     </div>
