@@ -15,7 +15,7 @@ function Experience() {
             `}
             key={index}>
             <div className={index % 2 !== 0 ? "order-2 align-self" : ""}>
-              <ExperienceCard data={r} />
+              <ExperienceCard data={r} reverseSlide={index % 2 !== 0} />
             </div>{" "}
             <div></div>
           </div>

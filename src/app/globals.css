@@ -18,7 +18,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-image: linear-gradient(to right, rgb(2, 2, 19), rgb(36, 36, 58));
+  background-image: linear-gradient(to right, #020213, #24243a);
 
 }
 
@@ -37,3 +37,5 @@ body {
     text-wrap: balance;
   }
 }
+
+/* #D5AC4E, #972D07, #B57F50, #E6AF2E, #C8963E */
