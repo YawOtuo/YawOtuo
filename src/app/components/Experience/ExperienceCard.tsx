@@ -20,10 +20,10 @@ type Props = {
 
 function ExperienceCard({ data, reverseSlide }: Props) {
   return (
-    <RevealSlideEnter reverse={reverseSlide}>
+    <RevealSlideEnter reverse={!reverseSlide}>
       <div
         className={`w-full flex items-center ${
-          !reverseSlide ? "  relative " : "flex-row-reverse "
+          reverseSlide ? "  relative " : "flex-row-reverse "
         } cursor-pointer `}>
         <div className="border-white  border-[5px] rounded-2xl w-full px-5 lg:px-10 py-5  lg:py-10 ">
           <div className="flex flex-col gap-5">

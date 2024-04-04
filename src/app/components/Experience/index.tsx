@@ -13,7 +13,7 @@ function Experience() {
       <div className="hidden lg:flex flex-col">
         {experienceData?.map((r, index) => (
           <div
-            className={`flex w-full
+            className={`flex w-full gap-5
             ${index % 2 == 0 ? " justify-center" : "justify-end"}
             `}
             key={index}>
