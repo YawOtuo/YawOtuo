@@ -18,6 +18,8 @@ const config: Config = {
         yellow2 : "#D5AC4E",
         yellow3: "#B57F50",
         yellow4 : "#C8963E",
+        purple1 : "#020213",
+        purple2: "#020213",
       }
     },
   },

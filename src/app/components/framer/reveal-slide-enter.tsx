@@ -36,7 +36,7 @@ export default function RevealSlideEnter({ children, delay=0.2, className, rever
       }}
       initial="hidden"
       animate={controls}
-      className={`${className} w-full overflow-x-hidden`}
+      className={`${className} w-full overflow-hidden`}
     >
       {children}
     </motion.div>

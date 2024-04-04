@@ -15,21 +15,26 @@ export default function Home() {
       <Navbar />
       <HeroSection />
       <RevealSlideEnter>
-        <About />
-      </RevealSlideEnter>{" "}
-      <div className="mt-10 lg:mt-0">
-        <RevealSlideEnter>
-          {" "}
-          <Experience />
-        </RevealSlideEnter>
+        <div id="about">
+          <About />
+        </div>{" "}
+      </RevealSlideEnter>
+      <div className="pt-10 lg:mt-0" id="experience">
+        {" "}
+        <Experience />
       </div>{" "}
       <RevealSlideEnter>
         {" "}
-        <TechStack />
+        <div id="tech-stack">
+          {" "}
+          <TechStack />
+        </div>
       </RevealSlideEnter>
       <RevealSlideEnter>
         {" "}
-        <Projects />
+        <div id="projects">
+          <Projects />
+        </div>
       </RevealSlideEnter>
     </main>
   );
