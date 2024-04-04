@@ -19,7 +19,7 @@ function TechStack() {
 
   return (
     <div className="flex flex-col gap-5 w-full items-start min-h-[90vh] justify-center">
-      <p className="title mb-10">Tech Stack</p>
+      <p className="title mb-10 wrapper">Tech Stack</p>
       <div className="flex flex-col gap-10 items-start w-full">
         {chunkedTData.map((chunk, index) => (
           <Swiper

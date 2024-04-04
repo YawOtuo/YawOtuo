@@ -55,7 +55,7 @@ function ExperienceCard({ data, reverseSlide }: Props) {
             <p>{data?.duration}</p>
           </div>
         </div>
-        <div className="w-[20px] flex items-center justify-center e h-full "></div>
+   
       </div>
     </RevealSlideEnter>
   );

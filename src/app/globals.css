@@ -39,3 +39,12 @@ body {
 }
 
 /* #D5AC4E, #972D07, #B57F50, #E6AF2E, #C8963E */
+
+.wrapper {
+  @media screen  and (max-width: 768px){
+    padding-inline: 1.25rem
+  }
+  @media screen  and (min-width: 768px){
+    padding-inline: 5rem;
+  }
+}

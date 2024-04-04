@@ -6,7 +6,7 @@ import useExperienceData from "./useExperience";
 function Experience() {
   const { experienceData, loading, error } = useExperienceData();
   return (
-    <div className="flex flex-col gap-10 ">
+    <div className="flex flex-col gap-10 wrapper">
       <RevealSlideEnter>
         <h1 className="title">Experience</h1>
       </RevealSlideEnter>{" "}
@@ -39,7 +39,7 @@ function Experience() {
             key={index}>
             <div className={index % 2 !== 0 ? "order-2 " : ""}>
               <ExperienceCard data={r} />
-            </div>{" "}
+            </div>
           </div>
         ))}
       </div>

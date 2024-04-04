@@ -7,10 +7,11 @@ import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
 import ScrollProgress from "./components/framer/scroll-progress";
 import RevealSlideEnter from "./components/framer/reveal-slide-enter";
+import LetsTalk from "./components/LetsTalk";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center px-5 lg:px-20 gap-5 text-white w-full overflow-x-hidden">
+    <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
       <HeroSection />
@@ -32,8 +33,15 @@ export default function Home() {
       </RevealSlideEnter>
       <RevealSlideEnter>
         {" "}
-        <div id="projects">
+        <div id="projects" className="lg:px-5">
           <Projects />
+        </div>
+      </RevealSlideEnter>
+
+      <RevealSlideEnter>
+        {" "}
+        <div id="letstalk">
+          {/* <LetsTalk /> */}
         </div>
       </RevealSlideEnter>
     </main>

@@ -3,10 +3,10 @@ import RevealSlideEnter from "../framer/reveal-slide-enter";
 function ProjectsQuote() {
   return (
     <RevealSlideEnter>
-      <div className="h-[30vh] lg:h-[80vh] flex flex-col justify-center lg:w-[75%] mb-20 lg:mb-0">
+      <div className="min-h-[30vh] lg:h-[80vh] flex flex-col justify-center lg:w-[75%] mb-20 wrapper">
         <>
           <div className="flex flex-col gap-5 ">
-            <blockquote className="text-xl lg:text-5xl lg:leading-[80px] text-yellow-600 w-full">
+            <blockquote className="text-xl lg:text-5xl lg:leading-[80px] text-yellow2 w-full font-semibold">
               {" "}
               &quot; Projects are like seeds;
               <br  />
