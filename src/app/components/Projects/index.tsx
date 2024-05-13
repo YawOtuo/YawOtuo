@@ -6,16 +6,35 @@ import { Navigation, Pagination } from "swiper/modules";
 import ProjectsQuote from "./ProjectsQuotes";
 import RevealSlideEnter from "../framer/reveal-slide-enter";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import developer1Json from "@/app/lotties/rocket2.json";
+import LottieFileBuilder from "../LottieFileBuilder";
 
 function Projects() {
   const { ProjectsData, loading, error } = useProjectsData();
   return (
     <div className="flex flex-col gap-10 w-full ">
-      <h1 className="title wrapper">Projects</h1>
 
-      <ProjectsQuote />
-
-      <div className="flex items-center justify-center gap-10 px-0 ">
+      <div className="flex items-center justify-start">
+        <div className="hidden lg:flex">
+          <LottieFileBuilder
+            animationData={developer1Json}
+            width={500}
+            height={"100%"}
+          />
+        </div>
+        <h1 className="title wrapper">Projects</h1>
+      </div>
+      <div className="flex flex-col lg:flex-row items-center gap-10 wrapper w-full">
+        <div className="lg:hidden">
+          <LottieFileBuilder
+            animationData={developer1Json}
+            width={"100%"}
+            height={"100%"}
+          />
+        </div>
+        <ProjectsQuote />
+      </div>
+      <div className="flex items-center justify-center gap-10 px-0 min-h-[100vh]">
         <Swiper
           breakpoints={{
             // Define breakpoints here

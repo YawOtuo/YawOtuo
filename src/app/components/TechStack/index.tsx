@@ -3,6 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import useAboutData from "../About/useAbout";
 import TSPill from "./TSPill";
 import { Autoplay, FreeMode } from "swiper/modules";
+import LottieFileBuilder from "../LottieFileBuilder";
+
+import developer1Json from "@/app/lotties/rocket1.json";
 
 function chunkArray(array: any, chunkSize: any) {
   const chunks = [];
@@ -19,7 +22,15 @@ function TechStack() {
 
   return (
     <div className="flex flex-col gap-5 w-full items-start min-h-[90vh] justify-center">
-      <p className="title mb-10 wrapper">Tech Stack</p>
+      <div className="flex items-center gap-5">
+        <p className="title mb-10 wrapper whitespace-nowrap">Tech Stack</p>
+
+        {/* <LottieFileBuilder
+          animationData={developer1Json}
+          width={200}
+          height={200}
+        /> */}
+      </div>{" "}
       <div className="flex flex-col gap-10 items-start w-full">
         {chunkedTData.map((chunk, index) => (
           <Swiper
@@ -33,16 +44,14 @@ function TechStack() {
             breakpoints={{
               // Define breakpoints here
 
-              768: { slidesPerView: 1}, // Example breakpoint for screen width <= 768px
+              768: { slidesPerView: 1 }, // Example breakpoint for screen width <= 768px
               1024: { slidesPerView: "auto" }, // Example breakpoint for screen width <= 1024px
             }}
             modules={[FreeMode, Autoplay]}
             spaceBetween={50}>
             {chunk.map((tech: any, idx: number) => (
               <SwiperSlide key={index} className="!w-fit">
-                <div
-                  className="w-fit"
-                  key={index}>
+                <div className="w-fit" key={index}>
                   <div key={idx} className="">
                     <TSPill data={tech} />
                   </div>

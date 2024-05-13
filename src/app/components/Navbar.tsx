@@ -20,7 +20,7 @@ function Navbar() {
   };
 
   return (
-    <div className="w-full justify-between hidden  lg:flex items-center mt-5">
+    <div className="w-full justify-between hidden  lg:flex items-center mt-5 px-5">
       <div className="bg-white p-1 rounded-full aspect-square text-purple1 hover:
       rotate-[360deg] duration-1000 cursor-pointer">
         {/* Logo or Branding */}

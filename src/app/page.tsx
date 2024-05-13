@@ -8,22 +8,37 @@ import Projects from "./components/Projects";
 import ScrollProgress from "./components/framer/scroll-progress";
 import RevealSlideEnter from "./components/framer/reveal-slide-enter";
 import LetsTalk from "./components/LetsTalk";
+import LottieFileBuilder from "./components/LottieFileBuilder";
+import developer1Json from "@/app/lotties/bg1.json";
 
 export default function Home() {
   return (
     <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
-      <HeroSection />
+      <div className="flex flex-col w-full gap-5 lg:flex-col-reverse">
+        <div className="pt-20 lg:pt-0">
+          <LottieFileBuilder
+            animationData={developer1Json}
+            width={"100%"}
+            height={"100%"}
+          />
+        </div>
+        <HeroSection />
+      </div>
+
       <RevealSlideEnter>
         <div id="about">
           <About />
         </div>{" "}
       </RevealSlideEnter>
+
       <div className="pt-10 lg:mt-0" id="experience">
         {" "}
         <Experience />
       </div>{" "}
+
+
       <RevealSlideEnter>
         {" "}
         <div id="tech-stack">
@@ -31,17 +46,17 @@ export default function Home() {
           <TechStack />
         </div>
       </RevealSlideEnter>
+      
       <RevealSlideEnter>
         {" "}
         <div id="projects" className="lg:px-5">
           <Projects />
         </div>
       </RevealSlideEnter>
-
       <RevealSlideEnter>
         {" "}
         <div id="letstalk">
-          {/* <LetsTalk /> */}
+          <LetsTalk />
         </div>
       </RevealSlideEnter>
     </main>
