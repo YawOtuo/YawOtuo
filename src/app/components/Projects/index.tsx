@@ -2,7 +2,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProjectsCard from "./ProjectCard";
 import useProjectsData from "./useProjectsData";
-import { Navigation, Pagination } from "swiper/modules";
+import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import ProjectsQuote from "./ProjectsQuotes";
 import RevealSlideEnter from "../framer/reveal-slide-enter";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
@@ -13,7 +13,6 @@ function Projects() {
   const { ProjectsData, loading, error } = useProjectsData();
   return (
     <div className="flex flex-col gap-10 w-full ">
-
       <div className="flex items-center justify-start">
         <div className="hidden lg:flex">
           <LottieFileBuilder
@@ -36,12 +35,15 @@ function Projects() {
       </div>
       <div className="flex items-center justify-center gap-10 px-0 min-h-[100vh]">
         <Swiper
-          breakpoints={{
-            // Define breakpoints here
-
-            768: { slidesPerView: 1 }, // Example breakpoint for screen width <= 768px
-            1024: { slidesPerView: 2 }, // Example breakpoint for screen width <= 1024px
-            1460: { slidesPerView: 3 }, // Example breakpoint for screen width <= 1024px
+          effect="coverflow"
+          centeredSlides={true}
+          slidesPerView={"auto"}
+          coverflowEffect={{
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            // slideShadows: true,
           }}
           className="w-full !px-8 !lg:px-20"
           navigation={{
@@ -52,19 +54,17 @@ function Projects() {
             clickable: true,
             el: ".custom-l-pagination",
           }}
-          modules={[Navigation, Pagination]}
+          modules={[Navigation, Pagination, EffectCoverflow]}
           spaceBetween={50}>
           {ProjectsData?.map((r, index) => (
-            <SwiperSlide className="w-full" key={index}>
-              <RevealSlideEnter>
-                <div className="flex justify-center w-full">
-                  <ProjectsCard data={r} />
-                </div>{" "}
-              </RevealSlideEnter>{" "}
+            <SwiperSlide className="lg:!w-fit !flex justify-center" key={index}>
+              <ProjectsCard data={r} />
             </SwiperSlide>
           ))}
           <div
-            className={`custom-l-prev absolute left-0 z-10 flex h-6 lg:h-10 w-6 lg:w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border-white border-2 lg:border-[4px] top-[38%] translate-y-[-38%] bg-purple2`}>
+            className={`custom-l-prev absolute hover:scale-[1.05] transition-all
+            hover:rotate-[360deg] left-0
+            lg:left-[10%] z-10 flex h-6 lg:h-10 w-6 lg:w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border-white border-2 lg:border-[4px] top-[38%]  translate-y-[-38%] bg-purple2`}>
             <MdChevronLeft className="text-lg text-white" />
           </div>
 
@@ -72,7 +72,10 @@ function Projects() {
             className={`custom-l-pagination bottom-40 h-20 w-full space-x-3 text-center `}></div> */}
 
           <div
-            className={`custom-l-next absolute right-0 z-10 flex h-6 lg:h-10 w-6 lg:w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-purple2 border-white  border-2 lg:border-[4px] top-[38%] translate-y-[-38%]`}>
+            className={`custom-l-next 
+            hover:scale-[1.05] transition-all
+            hover:rotate-[360deg] right-0
+            absolute lg:right-[10%] z-10 flex h-6 lg:h-10 w-6 lg:w-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-purple2 border-white  border-2 lg:border-[4px] top-[38%] translate-y-[-38%]`}>
             <MdChevronRight className="text-lg text-white" />
           </div>
         </Swiper>

@@ -4,7 +4,7 @@ type Props = {
 
 function TSPill({ data }: Props) {
   return (
-    <div className="bg-transparent border-[5px] border-white px-20 py-2 rounded-3xl text-xl uppercase whitespace-nowrap">
+    <div className="bg-transparent border-2 lg:border-[5px] border-white px-10 lg:px-20 py-1 lg:py-2 rounded-3xl text-xs lg:text-xl uppercase whitespace-nowrap hover:scale-[1.15] transition-all cursor-pointer">
       <p>{data}</p>
     </div>
   );

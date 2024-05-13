@@ -51,7 +51,7 @@ function ExperienceCard({ data, reverseSlide }: Props) {
               <p>-</p>
               <p>{data?.endDate}</p>
             </div>
-            <p>{data?.description}</p>
+            <p className="text-sm lg:text-base">{data?.description}</p>
             <p>{data?.duration}</p>
           </div>
         </div>

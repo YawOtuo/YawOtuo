@@ -20,7 +20,8 @@ type Props = {
 
 function ProjectCard({ data }: Props) {
   return (
-    <div className="border-white  border-[5px] rounded-2xl w-fit  pb-5 lg:max-w-[80%]">
+    <div className="border-white  border-[5px] rounded-2xl w-full  pb-5 lg:max-w-[40vw]">
+
       <div className="flex flex-col gap-5">
         <div className="relative w-full aspect-[3/2] overflow-hidden rounded-t-2xl max-h-[40vh]">
           <Image
@@ -31,12 +32,12 @@ function ProjectCard({ data }: Props) {
             objectPosition="center"
           />{" "}
         </div>
-        <div className="flex flex-col px-3 lg:px-5">
+        <div className="flex flex-col px-3 lg:px-5 py-2 lg:py-5 ">
           <div className="flex items-center gap-1 text-base">
             <p className=" font-semibold">{data?.title}</p>
           </div>
 
-          <p className="text-xs lg:text-sm">{data?.description}</p>
+          <p className="text-xs lg:text-sm 2xl:!leading-6 h-[20vh] overflow-y-scroll">{data?.description}</p>
           <div className="flex flex-wrap gap-5">
             {data?.technologies?.map((r: any, index: number) => (
               <p className="text-xs" key={index}>
@@ -45,7 +46,7 @@ function ProjectCard({ data }: Props) {
             ))}
           </div>
 
-          <div className="flex items-center gap-5 text-yellow-600 font-semibold text-xs pt-1">
+          <div className="flex items-center gap-5 text-yellow-600 font-semibold text-xs pt-1 lg:pt-4">
             {data?.link && <a 
             target="_blank"
             href={data?.link}
