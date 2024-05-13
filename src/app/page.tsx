@@ -16,7 +16,7 @@ export default function Home() {
     <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
-      <div className="flex flex-col w-full gap-5 lg:flex-col-reverse">
+      <div className="h-[100vh] lg:h-fit flex flex-col w-full gap-5 lg:flex-col-reverse justify-center">
         <div className="pt-20 lg:pt-0">
           <LottieFileBuilder
             animationData={developer1Json}
