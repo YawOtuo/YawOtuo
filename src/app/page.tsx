@@ -16,29 +16,32 @@ export default function Home() {
     <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
-      <div className="h-[100vh] lg:h-fit flex flex-col w-full gap-5 lg:flex-col-reverse justify-center">
-        <div className="pt-20 lg:pt-0">
+      <div className="h-[100vh] lg:h-fit flex flex-col w-full gap-5 lg:flex-col-reverse justify-start">
+        <div className="pt-20 lg:pt-0 hidden lg:flex">
           <LottieFileBuilder
             animationData={developer1Json}
             width={"100%"}
             height={"100%"}
           />
         </div>
+        <div className="p0 lg:pt-0 lg:hidden">
+          <LottieFileBuilder
+            animationData={developer1Json}
+            width={"100%"}
+            height={250}
+          />
+        </div>
         <HeroSection />
       </div>
-
       <RevealSlideEnter>
         <div id="about">
           <About />
         </div>{" "}
       </RevealSlideEnter>
-
       <div className="pt-10 lg:mt-0" id="experience">
         {" "}
         <Experience />
       </div>{" "}
-
-
       <RevealSlideEnter>
         {" "}
         <div id="tech-stack">
@@ -46,7 +49,6 @@ export default function Home() {
           <TechStack />
         </div>
       </RevealSlideEnter>
-      
       <RevealSlideEnter>
         {" "}
         <div id="projects" className="lg:px-5">
