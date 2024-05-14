@@ -8,7 +8,8 @@ export default defineType({
     defineField({
       name: 'generalInfo',
       title: 'General Information',
-      type: 'text',
+      type: 'array',
+      of: [{ type: 'text' }],
     }),
     defineField({
       name: 'education',

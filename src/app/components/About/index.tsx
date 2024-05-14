@@ -1,14 +1,21 @@
-"use client"
+"use client";
 import useAboutData from "./useAbout";
 
 function About() {
-  const {aboutData } =  useAboutData()
+  const { aboutData } = useAboutData();
   return (
-    <div className="wrapper flex gap-10 flex-col min-h-[80vh] lg:w-[70%] justify-center">
+    <div className="wrapper flex gap-10 flex-col min-h-[150vh] lg:w-[80%] justify-center py-20 lg:py-0">
       <p className="title">About Me</p>
 
-      <p className="lg:w-[70%] lg:leading-loose">
-      {aboutData?.generalInfo}   </p>
+      {/* Check if aboutData exists and if generalInfo is an array */}
+      {aboutData && Array.isArray(aboutData.generalInfo) && (
+        <div className="lg:w-[90%] lg:leading-loose">
+       
+          {aboutData.generalInfo.map((info, index) => (
+            <p key={index} className="pt-7">{info}</p>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

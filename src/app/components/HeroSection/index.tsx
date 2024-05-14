@@ -7,13 +7,13 @@ import LottieFileBuilder from "../LottieFileBuilder";
 function HeroSection() {
   return (
     <RevealSlideEnter>
-      <div className="flex flex-col items-start lg:items-start justify-start lg:justify-center text-white lg:h-[50vh] gap-8 lg:gap-10 px-5 lg:px-20 lg:w-[80%] relative">
+      <div className="flex flex-col items-start lg:items-start justify-start lg:justify-center text-white lg:min-h-[50vh] gap-8 lg:gap-10 px-5 lg:px-20 lg:w-[80%] relative pt-0 lg:pt-5">
         <div className="flex flex-col gap-5 lg:gap-1">
           <h1
-            className="text-4xl lg:text-8xl font-bold
+            className="text-4xl lg:text-7xl 2xl:text-8xl font-bold
           
           ">
-            <span className="text-2xl lg:text-8xl">Hello!</span>
+            <span className="text-2xl lg:text-7xl 2xl:text-8xl ">Hello!</span>
             <br className="lg:hidden" /> I am Yaw Otuo
           </h1>
 
