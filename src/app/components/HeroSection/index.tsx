@@ -25,7 +25,7 @@ function HeroSection() {
         <RevealSlideEnter delay={2}>
           <div className="flex gap-5 items-center ">
             <HSButtons variant={"contact"} label="Let's Talk" />
-            <HSButtons variant={"resume"} label="Resume" />
+            <HSButtons variant={"resume"} label="My Resume" />
           </div>
         </RevealSlideEnter>
       </div>
