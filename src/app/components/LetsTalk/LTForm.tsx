@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { sendEmail } from "@/app/utils/emailjs";
 import TextArea from "../ui/TextArea";
 import TextInput from "../ui/TextInput";
@@ -6,52 +6,70 @@ import LTButtons from "./LTButtons";
 import { Form, Formik } from "formik";
 
 const links = [
-  { name: "google", url: "https://www.google.com/" },
-  { name: "facebook", url: "http://www.facebook.com" },
-  { name: "twitter", url: "https://twitter.com/" },
+  { name: "/linkedin.svg", url: "https://www.linkedin.com/in/yaw-otuo/" },
+  { name: "/whatsapp.png", url: "https://wa.me/+233203775123" },
+  { name: "/github.png", url: "https://github.com/YawOtuo" },
 ];
 
 function LTForm() {
   return (
     <div className="w-full bg-transparent max-w-[700px]">
       <div className="flex flex-col gap-5">
-        <Formik initialValues={{
-          fromName:"",
-          fromEmail:"",
-          message: ""
-        }}>
+        <Formik
+          initialValues={{
+            fromName: "",
+            fromEmail: "",
+            message: "",
+          }}>
           {({ handleChange, values }) => (
-            <Form className="flex flex-col gap-5 ">
+            <Form className="flex flex-col gap-9 ">
+              <div className="flex flex-col gap-5">
+                <TextInput
+                  label="Name"
+                  name="fromName"
+                  value={values?.fromName}
+                  handleChange={handleChange}
+                />
 
-              <TextInput label="Full Name" name="fromName"
-              value={values?.fromName}
-              handleChange={handleChange} />
+                <TextInput
+                  label="Email"
+                  type="email"
+                  name="fromEmail"
+                  handleChange={handleChange}
+                  value={values?.fromEmail}
+                />
+                <TextArea
+                  label="Message"
+                  name="message"
+                  handleChange={handleChange}
+                  value={values?.message}
+                />
+              </div>
 
-              <TextInput
-                label="Email"
-                type="email"
-                name="fromEmail"
-                handleChange={handleChange}
-                value={values?.fromEmail}
-
-              />
-              <TextArea label="Message" name="message"
-                handleChange={handleChange}
-                value={values?.message}
-              />
-
-              <button className="flex items-center justify-center py-2 border-2 border-white rounded-md" type="submit" onClick={() => sendEmail(values?.fromName, values?.message, values?.fromEmail)}>
-                Send Mail
+              <button
+                className="flex items-center justify-center py-2  rounded-lg bg-green-900 font-bold text-2xl hover:scale-[1.02] transition-all"
+                type="submit"
+                onClick={() =>
+                  sendEmail(
+                    values?.fromName,
+                    values?.message,
+                    values?.fromEmail
+                  )
+                }>
+                Let&apos;s talk
               </button>
             </Form>
           )}
         </Formik>
       </div>
 
-      <div className="flex items-center gap-5 mt-5 ">
-        {links?.map((r, index: number) => (
-          <LTButtons key={index} label={r?.name} url={r?.url} />
-        ))}
+      <div className="flex flex-col gap-5 items-center  justify-center  mt-10 border-0 border-white py-5 rounded-xl ">
+        <p className="text-xs">or reach out on</p>{" "}
+        <div className="flex items-center gap-2 justify-center w-full">
+          {links?.map((r, index: number) => (
+            <LTButtons key={index} label={r?.name} url={r?.url} />
+          ))}
+        </div>
       </div>
     </div>
   );

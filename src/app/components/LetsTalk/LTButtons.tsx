@@ -1,7 +1,9 @@
+import Image from "next/image";
+
 type Props = {
   label: string;
   onClick?: any;
-  variant: any;
+  variant?: any;
   url: string;
 };
 
@@ -12,12 +14,13 @@ function LTButtons({ variant, label, url }: Props) {
     resume:
       "border-2 border-yellow-600 font-semibold hover:bg-yello hover:text-white hover:border-purple1",
   };
+
   return (
-    <div>
-      <a href={url} className={`${options[variant]} px-6 py-3 rounded-md`}>
-        {label}
-      </a>
-    </div>
+    <a className="w-[50px] hover:scale-[1.5] transition-all " href={url}>
+      <div className="relative w-full aspect-square max-w-[30px]">
+        <Image src={label} fill alt="Link" />
+      </div>
+    </a>
   );
 }
 
