@@ -16,7 +16,7 @@ function LTButtons({ variant, label, url }: Props) {
   };
 
   return (
-    <a className="w-[50px] hover:scale-[1.5] transition-all " href={url}>
+    <a target="_blank" className="w-[50px] hover:scale-[1.5] transition-all " href={url}>
       <div className="relative w-full aspect-square max-w-[30px]">
         <Image src={label} fill alt="Link" />
       </div>
