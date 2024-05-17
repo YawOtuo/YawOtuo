@@ -20,7 +20,7 @@ export default function TextArea({
 }: TextAreaProps) {
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-2xl">{label}</p>
+      <p className="text-xl lg:text-2xl">{label}</p>
       <textarea
         name={name}
         onChange={handleChange}
