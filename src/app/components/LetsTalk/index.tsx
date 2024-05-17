@@ -6,7 +6,7 @@ import LTForm from "./LTForm";
 function LetsTalk() {
   return (
     <div className="wrapper py-20">
-      <h1 className="title">Let &apos; s talk</h1>
+      <h1 className="title">Let&apos;s talk</h1>
 
       <div className="grid grid-cols-2  gap-20">
         <div className="col-span-2 lg:col-span-1">

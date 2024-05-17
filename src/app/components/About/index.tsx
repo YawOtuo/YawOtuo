@@ -4,7 +4,7 @@ import useAboutData from "./useAbout";
 function About() {
   const { aboutData } = useAboutData();
   return (
-    <div className="wrapper flex gap-10 flex-col min-h-[150vh] lg:w-[80%] justify-center py-20 lg:py-0">
+    <div className="wrapper flex gap-2 flex-col min-h-[110vh] lg:w-[80%] justify-center py-20 lg:py-0">
       <p className="title">About Me</p>
 
       {/* Check if aboutData exists and if generalInfo is an array */}

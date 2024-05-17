@@ -14,6 +14,8 @@ function Projects() {
   return (
     <div className="flex flex-col gap-10 w-full ">
       <div className="flex items-center justify-start">
+        <h1 className="title wrapper  hidden lg:flex">Projects</h1>
+
         <div className="hidden lg:flex">
           <LottieFileBuilder
             animationData={developer1Json}
@@ -21,9 +23,8 @@ function Projects() {
             height={"100%"}
           />
         </div>
-        <h1 className="title wrapper">Projects</h1>
       </div>
-      <div className="flex flex-col lg:flex-row items-center gap-10 wrapper w-full">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-10 wrapper w-full">
         <div className="lg:hidden">
           <LottieFileBuilder
             animationData={developer1Json}
@@ -31,9 +32,12 @@ function Projects() {
             height={"100%"}
           />
         </div>
+
+        <h1 className="title  lg:hidden">Projects</h1>
+
         <ProjectsQuote />
       </div>
-      <div className="flex items-center justify-center gap-10 px-0 min-h-[100vh]">
+      <div className="flex items-center justify-center gap-10 px-0 min-h-[60vh]">
         <Swiper
           effect="coverflow"
           centeredSlides={true}

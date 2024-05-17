@@ -21,7 +21,7 @@ function TechStack() {
   // const chunkedTData = chunkArray(aboutData?.techStack, 7); // Change 5 to your desired chunk size
 
   return (
-    <div className="flex flex-col gap-5 w-full items-start min-h-[90vh] justify-center">
+    <div className="flex mt-10 flex-col gap-5 w-full items-start min-h-[50vh] justify-center">
       <div className="flex items-center gap-5">
         <p className="title mb-10 wrapper whitespace-nowrap">Tech Stack</p>
 
