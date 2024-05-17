@@ -47,7 +47,7 @@ function LTForm() {
               </div>
 
               <button
-                className="flex items-center justify-center py-2  rounded-lg bg-green-900 font-bold text-2xl hover:scale-[1.02] transition-all"
+                className="flex items-center justify-center py-2  rounded-xl bg-green-900 font-bold text-2xl hover:scale-[1.02] transition-all"
                 type="submit"
                 onClick={() =>
                   sendEmail(
