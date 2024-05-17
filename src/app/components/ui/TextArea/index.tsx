@@ -5,15 +5,24 @@ export interface TextAreaProps {
   label?: string;
   placeholder?: string;
   className?: string;
+  name: string;
+  handleChange: any;
+  value: any;
 }
 
 export default function TextArea({
   label,
   placeholder,
   className,
+  name,
+  handleChange,
+  value,
 }: TextAreaProps) {
   return (
     <Textarea
+      name={name}
+      onChange={handleChange}
+      value={value}
       label={label}
       placeholder={placeholder}
       className={className}

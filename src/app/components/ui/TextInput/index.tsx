@@ -6,6 +6,9 @@ export interface TextInputProps {
   labelPlacement?: "outside" | "outside-left" | "inside" | undefined;
   className?: string;
   color?: any
+  name : string
+  handleChange: any
+  value : any
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -13,18 +16,25 @@ const TextInput: React.FC<TextInputProps> = ({
   label,
   labelPlacement = "outside",
   className,
-  color = "default"
+  color = "default",
+  handleChange, 
+  name,
+  value
 }) => {
   return (
     <div className={className}>
 
-      <Input type={type} label={label} labelPlacement={labelPlacement} color={color}
+      <Input name={name} type={type} label={label} labelPlacement={labelPlacement} color={color}
+      onChange={handleChange}
+      value={value}
+      className="!text-white"
       classNames={{
         inputWrapper:[
           "bg-transparent",
           "border-2 border-white",
           "focus:bg-transparent",
-          "hover:bg-transparent"
+          "hover:bg-transparent",
+          "text-white"
         
         ]
       }}

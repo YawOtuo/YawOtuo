@@ -15,6 +15,8 @@
     "@sanity/client": "^6.15.7",
     "@sanity/image-url": "^1.0.2",
     "@sanity/vision": "^3.36.2",
+    "emailjs-com": "^3.2.0",
+    "formik": "^2.4.6",
     "framer-motion": "^11.1.9",
     "next": "14.1.4",
     "next-sanity": "^7.1.4",
@@ -25,7 +27,8 @@
     "react-lottie": "^1.2.4",
     "sanity": "^3.36.2",
     "styled-components": "^6.1.8",
-    "swiper": "^11.1.0"
+    "swiper": "^11.1.0",
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
