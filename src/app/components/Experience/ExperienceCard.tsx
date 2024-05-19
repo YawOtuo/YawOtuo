@@ -25,7 +25,7 @@ type Props = {
 const Responsibility = ({ text }) => {
   return (
     <div className="flex items-center justify-start">
-      <li className="text-xs lg:text-base">{text}</li>
+      <li className="text-base">{text}</li>
     </div>
   );
 };
