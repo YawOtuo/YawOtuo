@@ -11,7 +11,7 @@ function Navbar() {
   const { setNavMobileMenuStore } = useNavMobileMenuStore();
   return (
     <>
-      <div className="w-full justify-between hidden  lg:flex items-center  px-5">
+      <div className="w-full justify-between hidden  lg:flex items-center  px-5 lg:py-2 lg:pt-4   lg:fixed top-0" >
         <Logo />
         <div>
           {/* Navigation Links */}
