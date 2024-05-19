@@ -9,7 +9,7 @@ type Props = {
 function HSButtons({ variant, label, onClick }: Props) {
   const options: any = {
     contact: "bg-yellow-600 text-purple1 font-bold  transition-all hover:text-white",
-    resume: "border-2 border-yellow-600 font-semibold hover:scale-[1.01] transition-all hover:text-white ",
+    resume: "border-2 border-yellow-600 font-semibold transition-all text-white ",
   };
   return (
     <div className="">
