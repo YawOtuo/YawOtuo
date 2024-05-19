@@ -13,7 +13,7 @@ export default function NavMobile(props: any) {
   return (
     <motion.aside
       ref={menuRef}
-      tabIndex="0"
+      tabIndex="0"  
       className="hidden-scrollbar bg-purple1 fixed top-0 min-h-dvh w-full gap-20 overflow-y-scroll pb-20 lg:pb-0 h-screen left-0 right-0 z-[9999] flex flex-col overflow-hidden "
       variants={ExpandCircle}
       exit={{

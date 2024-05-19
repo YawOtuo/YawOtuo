@@ -55,11 +55,9 @@ export default function Home() {
           <Projects />
         </div>
       </RevealSlideEnter>
-      <RevealSlideEnter>
-        {" "}
-        <div id="letstalk">
+      <RevealSlideEnter >
+       
           <LetsTalk />
-        </div>
       </RevealSlideEnter>
     </main>
   );

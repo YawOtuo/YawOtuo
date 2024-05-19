@@ -38,7 +38,8 @@ export default defineType({
     defineField({
       name: 'responsibilities',
       title: 'Responsibilities',
-      type: 'text',
+      type: 'array',
+      of: [{ type: 'string' }],
     }),
     defineField({
       name: 'achievements',
@@ -50,6 +51,11 @@ export default defineType({
       title: 'Skills Developed',
       type: 'array',
       of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'priority',
+      title: 'Priority',
+      type: 'number',
     }),
   ],
 })

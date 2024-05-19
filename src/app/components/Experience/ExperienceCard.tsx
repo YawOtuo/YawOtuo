@@ -11,11 +11,23 @@ type ExperienceType = {
   position: string;
   duration: string;
   company: string;
+  responsibilities: any;
+  description: any;
+  startDate: any;
+  endDate: any;
 };
 
 type Props = {
   data: ExperienceType;
   reverseSlide: boolean;
+};
+
+const Responsibility = ({ text }) => {
+  return (
+    <div className="flex items-center justify-start">
+      <li className="text-xs lg:text-base">{text}</li>
+    </div>
+  );
 };
 
 function ExperienceCard({ data, reverseSlide }: Props) {
@@ -24,7 +36,7 @@ function ExperienceCard({ data, reverseSlide }: Props) {
       <div
         className={`w-full flex items-center ${
           reverseSlide ? "  relative " : "flex-row-reverse "
-        } cursor-pointer `}>
+        } cursor-pointer  `}>
         <div className="border-white  border-[5px] rounded-2xl w-full px-5 lg:px-10 py-5  lg:py-10 ">
           <div className="flex flex-col gap-5">
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-1 text-lg">
@@ -35,11 +47,13 @@ function ExperienceCard({ data, reverseSlide }: Props) {
                 <div>
                   <LuCompass color="white" size="30" />
                 </div>
-                <p className=" pl-2 font-semibold">{data?.role}</p>
+                <p className=" pl-2 font-semibold">
+                  {data?.role}{" "}
+                  <span className=" font-semibold text-base text-yellow-600">
+                    @ {data?.company}
+                  </span>{" "}
+                </p>
               </div>
-              <p className=" font-semibold text-base text-yellow-600">
-                @ {data?.company}
-              </p>
             </div>
             {/* <div className="flex gap-5 items-center text-md">
               <MdOutlinePersonOutline color="white" />
@@ -51,11 +65,18 @@ function ExperienceCard({ data, reverseSlide }: Props) {
               <p>-</p>
               <p>{data?.endDate}</p>
             </div>
-            <p className="text-sm lg:text-base">{data?.description}</p>
+            {data?.responsibilities && (
+              <ul className="text-sm lg:text-base flex flex-col gap-2">
+                {data.responsibilities.map(
+                  (responsibility: string, index: number) => (
+                    <Responsibility key={index} text={responsibility} />
+                  )
+                )}
+              </ul>
+            )}
             <p>{data?.duration}</p>
           </div>
         </div>
-   
       </div>
     </RevealSlideEnter>
   );
