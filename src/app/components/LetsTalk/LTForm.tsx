@@ -13,7 +13,7 @@ const links = [
 
 function LTForm() {
   return (
-    <div className="w-full bg-transparent max-w-[700px]">
+    <div className="w-full bg-transparent max-w-[600px]">
       <div className="flex flex-col gap-5">
         <Formik
           initialValues={{
@@ -47,7 +47,7 @@ function LTForm() {
               </div>
 
               <button
-                className="flex items-center justify-center py-2  rounded-xl bg-green-900 font-bold text-2xl hover:scale-[1.02] transition-all"
+                className="flex items-center justify-center py-2  rounded-xl bg-purple1 font-bold text-base hover:scale-[1.02] transition-all"
                 type="submit"
                 onClick={() =>
                   sendEmail(

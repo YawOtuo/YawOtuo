@@ -20,9 +20,9 @@ const TextInput: React.FC<TextInputProps> = ({
   value,
 }) => {
   return (
-    <div className={`${className} flex flex-col gap-2`}>
+    <div className={`${className} flex flex-col gap-1`}>
 
-      <p className="text-xl  ">{label}</p>
+      <p className="text-base  ">{label}</p>
 
       <input
         name={name}
@@ -30,7 +30,7 @@ const TextInput: React.FC<TextInputProps> = ({
         color={color}
         onChange={handleChange}
         value={value}
-        className="!text-white bg-transparent border-2 border-white rounded-xl py-2 px-5 text-2xl"
+        className="!text-white bg-transparent border-b-[1px] border-white py-1 px-5 text-2xl"
       />
     </div>
   );

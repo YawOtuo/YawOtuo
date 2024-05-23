@@ -19,14 +19,14 @@ export default function TextArea({
   value,  
 }: TextAreaProps) {
   return (
-    <div className="flex flex-col gap-3">
-      <p className="text-xl">{label}</p>
+    <div className="flex flex-col gap-1">
+      <p className="text-base">{label}</p>
       <textarea
         name={name}
         onChange={handleChange}
         value={value}
         placeholder={placeholder}
-        className={"py-2 bg-transparent rounded-xl border-2 border-white px-2 text-2xl h-[150px]"}
+        className={"py-1 bg-transparent  border-b-[1px] border-white px-2 text-2xl h-[150px]"}
       />
     </div>
   );

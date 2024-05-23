@@ -1,6 +1,6 @@
 import LottieFileBuilder from "../LottieFileBuilder";
 import LTButtons from "./LTButtons";
-import developer1Json from "@/app/lotties/talk1.json";
+import developer1Json from "@/app/lotties/pc1.json";
 import LTForm from "./LTForm";
 
 function LetsTalk() {
