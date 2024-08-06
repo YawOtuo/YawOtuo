@@ -12,6 +12,7 @@ type ProjectType = {
   description: string;
   technologies: [];
   image: any;
+  
 };
 
 type Props = {

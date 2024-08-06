@@ -24,10 +24,12 @@ body {
 
 .title {
   font-weight: 600;
-  @media screen  and (max-width: 768px){
+
+  @media screen and (max-width: 768px) {
     font-size: 32px;
   }
-  @media screen  and (min-width: 768px){
+
+  @media screen and (min-width: 768px) {
     font-size: 60px;
   }
 }
@@ -41,10 +43,15 @@ body {
 /* #D5AC4E, #972D07, #B57F50, #E6AF2E, #C8963E */
 
 .wrapper {
-  @media screen  and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     padding-inline: 1.25rem
   }
-  @media screen  and (min-width: 768px){
+
+  @media screen and (min-width: 768px) {
     padding-inline: 5rem;
   }
+}
+
+.swiper-mobile-button {
+  @apply lg:hidden flex  hover:scale-[1.05] transition-all hover:rotate-[360deg]  h-16 w-16  shrink-0 cursor-pointer items-center text-3xl justify-center rounded-full bg-purple2 border-white border-4 ;
 }
