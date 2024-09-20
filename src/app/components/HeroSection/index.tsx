@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import RevealSlideEnter from "../framer/reveal-slide-enter";
 import HSButtons from "./Buttons";
@@ -27,9 +27,21 @@ function HeroSection() {
 
         <RevealSlideEnter delay={2}>
           <div className="flex gap-5 items-center w-full">
-            <HSButtons variant={"contact"} label="Let's Talk" onClick={() => handleLinkClick('letstalk')}/>
-
-            <HSButtons variant={"resume"} label="My Resume" />
+            <HSButtons
+              variant={"contact"}
+              label="Let's Talk"
+              onClick={() => handleLinkClick("letstalk")}
+            />
+            <HSButtons
+              onClick={() =>
+                window.open(
+                  "https://docs.google.com/document/d/1RycbOCvFvEHFDmymyK8jx7Bq5XBZU5_MAEzigP9g-Hk/edit#heading=h.5x0d5h95i329",
+                  "_blank"
+                )
+              }
+              variant={"resume"}
+              label="My Resume"
+            />
           </div>
         </RevealSlideEnter>
       </div>
