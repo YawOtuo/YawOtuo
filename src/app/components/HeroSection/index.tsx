@@ -26,7 +26,7 @@ function HeroSection() {
       
       {/* Content */}
       <RevealSlideEnter>
-        <div className="relative z-20 flex flex-col lg:flex-row items-center justify-center text-white min-h-[100vh] gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-20 w-full">
+        <div className="relative z-20 flex flex-col lg:flex-row items-center justify-center text-white min-h-[50vh] md:min-h-[100vh] gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-20 w-full">
           
           {/* Left Content */}
           <div className="flex flex-col items-start justify-center gap-6 sm:gap-8 lg:gap-10 lg:w-[60%] w-full">
@@ -42,7 +42,7 @@ function HeroSection() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
+                <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
                   <span className="text-yellow-500 text-xl sm:text-2xl md:text-3xl lg:text-6xl 2xl:text-7xl">Hello!</span>
                   <br className="lg:hidden" /> 
                   <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
@@ -102,12 +102,12 @@ function HeroSection() {
                       )
                     }
                     variant={"resume"}
-                    label="See My Story"
+                    label="See My Resume"
                   />
                   <HSButtons
                     onClick={() => handleLinkClick("projects")}
                     variant={"secondary"}
-                    label="Check My Magic"
+                    label="See My Projects"
                   />
                 </div>
               </motion.div>

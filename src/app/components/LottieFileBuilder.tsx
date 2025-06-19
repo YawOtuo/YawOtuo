@@ -1,7 +1,7 @@
 "use client"
 import dynamic from 'next/dynamic';
 
-const Lottie = dynamic(() => import("react-lottie"), { 
+const Lottie = dynamic(() => import("lottie-react"), { 
   ssr: false,
   loading: () => <div className="w-full h-full bg-gray-800/20 rounded-lg animate-pulse" />
 });
@@ -25,16 +25,15 @@ export default function LottieFileBuilder({
   height = 400,
   width = 400,
 }: Props) {
-  const defaultOptions = {
-    loop: loop,
-    autoplay: autoplay,
-    animationData: animationData,
-    rendererSettings: rendererSettings,
-  };
-
   return (
     <div className="w-full">
-      <Lottie options={defaultOptions} height={height} width={width} />
+      <Lottie 
+        animationData={animationData}
+        loop={loop}
+        autoplay={autoplay}
+        style={{ width, height }}
+        rendererSettings={rendererSettings}
+      />
     </div>
   );
 }
