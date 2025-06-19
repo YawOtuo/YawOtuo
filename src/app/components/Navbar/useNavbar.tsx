@@ -8,10 +8,12 @@ function useNavbar() {
 
   const handleLinkClick = (url: string) => {
     console.log("first");
-    const element = document.getElementById(url);
-    console.log(element);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "end" });
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      const element = document.getElementById(url);
+      console.log(element);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "end" });
+      }
     }
   };
   return { links, handleLinkClick };
