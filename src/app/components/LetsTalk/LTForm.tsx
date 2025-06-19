@@ -42,11 +42,11 @@ function LTForm() {
     >
       <div className="flex flex-col gap-6">
         <div className="text-center mb-4">
-          <h3 className="text-xl lg:text-2xl font-bold text-white mb-2">
-            Send me a message
+          <h3 className="text-xl sm:text-2xl font-bold text-yellow-500 mb-4 sm:mb-6">
+            Let&apos;s Start a Conversation
           </h3>
           <p className="text-gray-400 text-sm">
-            I'll get back to you within 24 hours
+            I&apos;ll get back to you within 24 hours
           </p>
         </div>
 

@@ -71,8 +71,8 @@ function HeroSection() {
               transition={{ duration: 0.8, delay: 0.8 }}
               className="max-w-2xl w-full"
             >
-              <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed">
-                🚀 <span className="text-yellow-400 font-semibold">I help startups go from "what if" to "wow!"</span> - 
+              <p className="text-gray-300 text-base lg:text-lg leading-relaxed">
+                🚀 <span className="text-yellow-400 font-semibold">I help startups go from &quot;what if&quot; to &quot;wow!&quot;</span> - 
                 Built African Bully Registry from zero to international recognition in 1 year.
               </p>
             </motion.div>

@@ -149,7 +149,7 @@ function Experience() {
       >
         <div className="bg-gray-900/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border border-gray-800/50">
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-500 mb-4 sm:mb-6 text-center">
-            What I've Learned Along the Way
+            What I&apos;ve Learned Along the Way
           </h3>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
