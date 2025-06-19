@@ -6,7 +6,7 @@ function useNavbar() {
     { name: "Projects", url: "projects" },
   ];
 
-  const handleLinkClick = (url) => {
+  const handleLinkClick = (url: string) => {
     console.log("first");
     const element = document.getElementById(url);
     console.log(element);

@@ -24,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={mont.className}>
+    <html lang="en" className="bg-black">
+      <body className={`${mont.className} max-w-8xl mx-auto `}>
         <MobileMenuWrapper>{children}</MobileMenuWrapper>
       </body>
     </html>

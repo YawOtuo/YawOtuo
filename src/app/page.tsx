@@ -16,21 +16,7 @@ export default function Home() {
     <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
-      <div className="min-h-[60vh] mt-10 lg:h-fit flex flex-col w-full gap-14 lg:gap-5 lg:flex-col-reverse justify-center">
-        <div className="pt-20 lg:pt-0 hidden lg:flex">
-          <LottieFileBuilder
-            animationData={developer1Json}
-            width={"100%"}
-            height={"100%"}
-          />
-        </div>
-        <div className="p0 lg:pt-0 lg:hidden">
-          <LottieFileBuilder
-            animationData={developer1Json}
-            width={"100%"}
-            height={250}
-          />
-        </div>
+      <div className="min-h-[100vh] w-full relative">
         <HeroSection />
       </div>
       <RevealSlideEnter>

@@ -2,7 +2,7 @@ import emailjs from 'emailjs-com';
 
 
 
-export function sendEmail(  fromName, message,fromEmail ) {
+export function sendEmail(  fromName: string, message: string,fromEmail: string ) {
   // Email template parameters
   const templateParams = {
     from_name: fromName,
