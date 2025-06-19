@@ -11,7 +11,7 @@ function HeroSection() {
   const { handleLinkClick } = useNavbar();
   
   return (
-    <div className="relative min-h-[100vh] w-full flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-[80vh] md:min-h-[100vh] w-full flex items-center justify-center overflow-hidden">
       {/* Background Lottie Animation */}
       <div className="absolute inset-0 z-0 opacity-10 sm:opacity-15 md:opacity-20 lg:opacity-30">
         <LottieFileBuilder
@@ -42,7 +42,7 @@ function HeroSection() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
+                <h1 className="text-4xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
                   <span className="text-yellow-500 text-xl sm:text-2xl md:text-3xl lg:text-6xl 2xl:text-7xl">Hello!</span>
                   <br className="lg:hidden" /> 
                   <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">

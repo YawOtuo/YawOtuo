@@ -11,7 +11,7 @@ function Navbar() {
   const { setNavMobileMenuStore } = useNavMobileMenuStore();
   return (
     <>
-      <div className="w-full justify-between hidden  lg:flex items-center  px-5 lg:py-2 lg:pt-4   lg:fixed top-0" >
+      <div className="w-full justify-between hidden lg:flex items-center px-5 lg:py-2 lg:pt-4 lg:fixed top-0 z-50 bg-black/20 backdrop-blur-sm" >
         <Logo />
         <div>
           {/* Navigation Links */}
@@ -19,7 +19,7 @@ function Navbar() {
             {links.map((link, index) => (
               <button
                 key={index}
-                className="appearance-none"
+                className="appearance-none text-white hover:text-yellow-400 transition-colors duration-300"
                 onClick={() => {
                   handleLinkClick(link.url);
                 }}
@@ -30,7 +30,7 @@ function Navbar() {
           </ul>
         </div>
       </div>
-      <div className="w-full lg:hidden flex items-center justify-between px-5">
+      <div className="w-full lg:hidden flex items-center justify-between px-5 z-50 bg-black/20 backdrop-blur-sm">
         <Logo />
 
         <button onClick={() => setNavMobileMenuStore(true)}>
