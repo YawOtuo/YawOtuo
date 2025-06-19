@@ -1,5 +1,10 @@
 "use client"
-import Lottie from "react-lottie";
+import dynamic from 'next/dynamic';
+
+const Lottie = dynamic(() => import("react-lottie"), { 
+  ssr: false,
+  loading: () => <div className="w-full h-full bg-gray-800/20 rounded-lg animate-pulse" />
+});
 
 type Props = {
   animationData: any;
@@ -9,6 +14,7 @@ type Props = {
   height?: number | string;
   width?: number | string;
 };
+
 export default function LottieFileBuilder({
   animationData,
   loop = true,
