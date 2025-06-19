@@ -16,7 +16,7 @@ function Projects() {
 
   if (loading) {
     return (
-      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0">
+      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -30,7 +30,7 @@ function Projects() {
 
   if (error) {
     return (
-      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0">
+      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
         <p className="text-red-400">Error loading projects. Please try again later.</p>
       </div>
     );

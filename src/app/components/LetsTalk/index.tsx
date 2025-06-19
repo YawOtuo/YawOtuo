@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 function LetsTalk() {
   return (
-    <div className="wrapper flex gap-6 sm:gap-8 flex-col min-h-[80vh] w-full sm:w-[90%] lg:w-[80%] justify-center py-20 lg:py-0">
+    <div className="flex gap-6 sm:gap-8 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
       
       {/* Section Header */}
       <motion.div

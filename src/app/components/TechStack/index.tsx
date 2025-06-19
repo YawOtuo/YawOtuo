@@ -34,7 +34,7 @@ function TechStack() {
 
   if (loading) {
     return (
-      <div className="wrapper flex gap-2 flex-col min-h-[80vh] w-full sm:w-[90%] lg:w-[80%] justify-center py-20 lg:py-0">
+      <div className="flex gap-2 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -48,14 +48,14 @@ function TechStack() {
 
   if (error) {
     return (
-      <div className="wrapper flex gap-2 flex-col min-h-[80vh] w-full sm:w-[90%] lg:w-[80%] justify-center py-20 lg:py-0">
+      <div className="flex gap-2 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
         <p className="text-red-400">Error loading tech stack data. Please try again later.</p>
       </div>
     );
   }
 
   return (
-    <div className="wrapper flex gap-6 sm:gap-8 lg:gap-20 flex-col min-h-[80vh] w-full sm:w-[90%] lg:w-[80%] justify-center py-20 lg:py-0">
+    <div className="flex gap-6 sm:gap-8 lg:gap-20 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
       
       {/* Section Header */}
       <motion.div
