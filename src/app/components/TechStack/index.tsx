@@ -178,7 +178,7 @@ function TechStack() {
             Always Learning, Always Growing
           </h3>
           <p className="text-gray-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
-            I'm constantly exploring new technologies and frameworks to stay ahead of the curve. 
+            I&apos;m constantly exploring new technologies and frameworks to stay ahead of the curve. 
             Currently diving deep into AI/ML integration and advanced cloud architectures.
           </p>
         </div>

@@ -66,7 +66,7 @@ export default function NavMobile(props: any) {
             className="relative z-10 p-6 text-center"
           >
             <p className="text-gray-400 text-sm">
-              Let's build something amazing together
+              Let&apos;s build something amazing together
             </p>
           </motion.div>
         </motion.aside>

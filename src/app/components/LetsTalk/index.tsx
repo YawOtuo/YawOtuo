@@ -18,9 +18,9 @@ function LetsTalk() {
         className="text-center"
         id="letstalk"
       >
-        <h2 className="title text-white mb-3 sm:mb-4">Let's Talk</h2>
+        <h2 className="title text-white mb-3 sm:mb-4">Let&apos;s Talk</h2>
         <p className="text-gray-400 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-4">
-          Ready to turn your ideas into reality? Let's build something amazing together!
+          Ready to turn your ideas into reality? Let&apos;s build something amazing together!
         </p>
       </motion.div>
 
