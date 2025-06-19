@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.6.0",
     "@nextui-org/input": "^2.1.21",
     "@nextui-org/system": "^2.1.2",
     "@nextui-org/theme": "^2.2.3",
@@ -18,7 +19,6 @@
     "emailjs-com": "^3.2.0",
     "formik": "^2.4.6",
     "framer-motion": "^11.1.9",
-    "lottie-react": "^2.4.1",
     "next": "14.1.4",
     "next-sanity": "^7.1.4",
     "prop-types": "^15.8.1",

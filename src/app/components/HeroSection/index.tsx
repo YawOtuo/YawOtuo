@@ -28,98 +28,12 @@ function HeroSection() {
       <RevealSlideEnter>
         <div className="relative z-20 flex flex-col lg:flex-row items-center justify-center text-white min-h-[50vh] md:min-h-[100vh] gap-6 sm:gap-8 lg:gap-12 px-4 sm:px-6 md:px-8 lg:px-20 w-full">
           
-          {/* Left Content */}
-          <div className="flex flex-col items-start justify-center gap-6 sm:gap-8 lg:gap-10 lg:w-[60%] w-full">
-            {/* Main Heading */}
-            <motion.div 
-              className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <h1 className="text-4xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
-                  <span className="text-yellow-500 text-xl sm:text-2xl md:text-3xl lg:text-6xl 2xl:text-7xl">Hello!</span>
-                  <br className="lg:hidden" /> 
-                  <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
-                    I am Yaw Otuo
-                  </span>
-                </h1>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-300">
-                  I turn wild ideas into digital reality
-                </h2>
-              </motion.div>
-
-        
-            </motion.div>
-
-            {/* Single Catchy Tagline */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="max-w-2xl w-full"
-            >
-              <p className="text-gray-300 text-base lg:text-lg leading-relaxed">
-                🚀 <span className="text-yellow-400 font-semibold">I help startups go from &quot;what if&quot; to &quot;wow!&quot;</span> - 
-                Built African Bully Registry from zero to international recognition in 1 year.
-              </p>
-            </motion.div>
-
-            {/* Action Buttons */}
-            <RevealSlideEnter delay={1.0}>
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 items-start sm:items-center w-full"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 1.0 }}
-              >
-                {/* Primary Button - Always Visible */}
-                <HSButtons
-                  variant={"contact"}
-                  label="Let's Build Something Epic"
-                  onClick={() => handleLinkClick("letstalk")}
-                />
-                
-                {/* Secondary Buttons - Hidden on Mobile */}
-                <div className="hidden sm:flex sm:flex-row gap-4 lg:gap-6">
-                  <HSButtons
-                    onClick={() =>
-                      window.open(
-                        "https://docs.google.com/document/d/1RycbOCvFvEHFDmymyK8jx7Bq5XBZU5_MAEzigP9g-Hk/edit#heading=h.5x0d5h95i329",
-                        "_blank"
-                      )
-                    }
-                    variant={"resume"}
-                    label="See My Resume"
-                  />
-                  <HSButtons
-                    onClick={() => handleLinkClick("projects")}
-                    variant={"secondary"}
-                    label="See My Projects"
-                  />
-                </div>
-              </motion.div>
-            </RevealSlideEnter>
-          </div>
-
-          {/* Right Side - Profile Image */}
+          {/* Profile Image - First on Mobile */}
           <motion.div
-            className="flex-shrink-0 lg:w-[40%] w-full flex justify-center lg:justify-end items-center mt-6 lg:mt-0"
+            className="flex-shrink-0 lg:w-[40%] w-full flex justify-center lg:justify-end items-center order-1 lg:order-2"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative">
               {/* Profile Image Container */}
@@ -151,6 +65,92 @@ function HeroSection() {
               </motion.div>
             </div>
           </motion.div>
+
+          {/* Left Content - Second on Mobile */}
+          <div className="flex flex-col items-start justify-center gap-6 sm:gap-8 lg:gap-10 lg:w-[60%] w-full order-2 lg:order-1">
+            {/* Main Heading */}
+            <motion.div 
+              className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <h1 className="text-4xl lg:text-7xl 2xl:text-8xl font-bold leading-tight">
+                  <span className="text-yellow-500 text-xl sm:text-2xl md:text-3xl lg:text-6xl 2xl:text-7xl">Hello!</span>
+                  <br className="lg:hidden" /> 
+                  <span className="bg-gradient-to-r from-yellow-500 to-orange-500 bg-clip-text text-transparent">
+                    I am Yaw Otuo
+                  </span>
+                </h1>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-300">
+                  I turn wild ideas into digital reality
+                </h2>
+              </motion.div>
+
+        
+            </motion.div>
+
+            {/* Single Catchy Tagline */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 1.0 }}
+              className="max-w-2xl w-full"
+            >
+              <p className="text-gray-300 text-xs lg:text-lg leading-relaxed">
+                🚀 <span className="text-yellow-400 font-semibold">I help startups go from &quot;what if&quot; to &quot;wow!&quot;</span> - 
+                Built African Bully Registry from zero to international recognition in 1 year.
+              </p>
+            </motion.div>
+
+            {/* Action Buttons */}
+            <RevealSlideEnter delay={1.2}>
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 items-start sm:items-center w-full"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 1.2 }}
+              >
+                {/* Primary Button - Always Visible */}
+                <HSButtons
+                  variant={"contact"}
+                  label="Let's Build Something Epic"
+                  onClick={() => handleLinkClick("letstalk")}
+                />
+                
+                {/* Secondary Buttons - Hidden on Mobile */}
+                <div className="hidden sm:flex sm:flex-row gap-4 lg:gap-6">
+                  <HSButtons
+                    onClick={() =>
+                      window.open(
+                        "https://docs.google.com/document/d/1RycbOCvFvEHFDmymyK8jx7Bq5XBZU5_MAEzigP9g-Hk/edit#heading=h.5x0d5h95i329",
+                        "_blank"
+                      )
+                    }
+                    variant={"resume"}
+                    label="See My Resume"
+                  />
+                  <HSButtons
+                    onClick={() => handleLinkClick("projects")}
+                    variant={"secondary"}
+                    label="See My Projects"
+                  />
+                </div>
+              </motion.div>
+            </RevealSlideEnter>
+          </div>
         </div>
       </RevealSlideEnter>
 
