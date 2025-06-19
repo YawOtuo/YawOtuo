@@ -7,6 +7,7 @@ import { ExpandCircle } from "@/app/lib/animations";
 
 export default function NavMobile(props: any) {
   const menuRef = useRef<HTMLElement>(null);
+  const { setNavMobileMenuStore } = useNavMobileMenuStore();
 
   return (
     <AnimatePresence>
@@ -44,8 +45,8 @@ export default function NavMobile(props: any) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            onClick={() => props?.onClose?.()}
-            className="absolute top-6 right-6 z-10 p-2 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:bg-gray-700/50 transition-all duration-300"
+            onClick={() => setNavMobileMenuStore(false)}
+            className="absolute top-6 right-6 z-100 p-2 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:bg-gray-700/50 transition-all duration-300"
           >
             <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

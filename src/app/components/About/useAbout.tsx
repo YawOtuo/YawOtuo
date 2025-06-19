@@ -4,9 +4,14 @@
 import { fetchAboutData } from '@/app/apis';
 import { useEffect, useState } from 'react';
 
+interface AboutData {
+  techStack?: string[];
+  [key: string]: any;
+}
+
 // Custom hook for fetching experience data from Sanity.io
 const useAboutData = () => {
-  const [aboutData, setaboutData] = useState([]);
+  const [aboutData, setaboutData] = useState<AboutData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
