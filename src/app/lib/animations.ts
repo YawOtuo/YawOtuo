@@ -32,9 +32,11 @@ export const HideShow = {
 
 export const ExpandCircle = {
   open: (
-    d = window.screen.height >= window.screen.width
-      ? window.screen.height
-      : window.screen.width,
+    d = typeof window !== 'undefined' 
+      ? (window.screen.height >= window.screen.width
+          ? window.screen.height
+          : window.screen.width)
+      : 1000,
   ) => ({
     clipPath: `circle(${d * 2 + 300}px at right top)`,
     transition: {
@@ -57,9 +59,11 @@ export const ExpandCircle = {
 
 export const ExpandCircleFromBottom = {
   open: (
-    d = window.screen.height >= window.screen.width
-      ? window.screen.height
-      : window.screen.width,
+    d = typeof window !== 'undefined'
+      ? (window.screen.height >= window.screen.width
+          ? window.screen.height
+          : window.screen.width)
+      : 1000,
   ) => ({
     clipPath: `circle(${d * 2 + 300}px at right bottom)`,
     transition: {
