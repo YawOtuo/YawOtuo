@@ -14,7 +14,7 @@ export default function DesktopHeroSection() {
       <RevealSlideEnter>
         <div className="flex flex-col lg:flex-row items-center justify-center text-white min-h-[100vh] gap-8 sm:gap-10 lg:gap-12 px-6 sm:px-6 md:px-8 lg:px-20 w-full py-12 sm:py-16">
           <motion.div
-            className="flex-shrink-0 lg:w-[40%] w-full flex justify-center lg:justify-end items-center order-2"
+            className="flex-shrink-0 lg:w-[40%] w-full flex justify-center lg:justify-center items-center order-2"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
