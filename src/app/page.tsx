@@ -13,10 +13,10 @@ import developer1Json from "@/app/lotties/bg1.json";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden">
+    <main className="relative flex flex-col items-center gap-5 text-white w-full overflow-x-hidden ">
       <ScrollProgress />
       <Navbar />
-      <div className="min-h-[100vh] w-full relative">
+      <div className="] w-full relative">
         <HeroSection />
       </div>
       <RevealSlideEnter>

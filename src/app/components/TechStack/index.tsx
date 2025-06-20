@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import useAboutData from "../About/useAbout";
 import TSPill from "./TSPill";
 import { useState } from "react";
+import PillButton from "../PillButton";
 
 function TechStack() {
   const { aboutData, loading, error } = useAboutData();
@@ -80,18 +81,13 @@ function TechStack() {
         className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 px-4"
       >
         {techCategories.map((category) => (
-          <button
+          <PillButton
             key={category.id}
             onClick={() => setActiveCategory(category.id)}
-            className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeCategory === category.id
-                ? 'bg-yellow-500 text-black shadow-lg'
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white'
-            }`}
-          >
-            <span className="text-base sm:text-lg">{category.icon}</span>
-            <span>{category.label}</span>
-          </button>
+            variant={activeCategory === category.id ? "primary" : "tertiary"}
+            label={category.label}
+            icon={<span className="text-base sm:text-lg">{category.icon}</span>}
+          />
         ))}
       </motion.div>
 

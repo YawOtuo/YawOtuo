@@ -9,6 +9,7 @@ import developer1Json from "@/app/lotties/rocket2.json";
 import LottieFileBuilder from "../LottieFileBuilder";
 import { useRef } from "react";
 import { motion } from "framer-motion";
+import PillButton from "../PillButton";
 
 function Projects() {
   const { ProjectsData, loading, error } = useProjectsData();
@@ -171,15 +172,14 @@ function Projects() {
           <p className="text-gray-300 text-xs sm:text-sm lg:text-base mb-3 sm:mb-4">
             Check out my GitHub for more projects and contributions
           </p>
-          <motion.a
+          <PillButton
+            as="a"
             href="https://github.com/YawOtuo"
             target="_blank"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-colors duration-300 text-sm sm:text-base"
-          >
-            View GitHub Profile
-          </motion.a>
+            variant="tertiary"
+            label="View GitHub Profile"
+            className="inline-flex !w-auto"
+          />
         </div>
       </motion.div>
     </div>

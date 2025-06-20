@@ -4,6 +4,7 @@ import ExperienceCard from "./ExperienceCard";
 import useExperienceData from "./useExperience";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import PillButton from "../PillButton";
 
 type ExperienceItem = {
   company: string;
@@ -86,18 +87,13 @@ function Experience() {
         className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 px-4"
       >
         {filters.map((filter) => (
-          <button
+          <PillButton
             key={filter.id}
             onClick={() => setActiveFilter(filter.id)}
-            className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeFilter === filter.id
-                ? 'bg-yellow-500 text-black shadow-lg'
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white'
-            }`}
-          >
-            <span className="text-base sm:text-lg">{filter.icon}</span>
-            <span>{filter.label}</span>
-          </button>
+            variant={activeFilter === filter.id ? "primary" : "tertiary"}
+            label={filter.label}
+            icon={<span className="text-base sm:text-lg">{filter.icon}</span>}
+          />
         ))}
       </motion.div>
 

@@ -2,6 +2,7 @@
 import useAboutData from "./useAbout";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import PillButton from "../PillButton";
 
 function About() {
   const { aboutData, loading, error } = useAboutData();
@@ -42,7 +43,7 @@ function About() {
 
   if (loading) {
     return (
-      <div className="flex gap-2 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
+      <div className="flex gap-2 flex-col min-h-[70vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -88,18 +89,13 @@ function About() {
         className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 px-4"
       >
         {tabs.map((tab) => (
-          <button
+          <PillButton
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all duration-300 text-sm sm:text-base ${
-              activeTab === tab.id
-                ? 'bg-yellow-500 text-black shadow-lg'
-                : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white'
-            }`}
-          >
-            <span className="text-base sm:text-lg">{tab.icon}</span>
-            <span>{tab.label}</span>
-          </button>
+            variant={activeTab === tab.id ? "primary" : "tertiary"}
+            label={tab.label}
+            icon={<span className="text-base sm:text-lg">{tab.icon}</span>}
+          />
         ))}
       </motion.div>
 

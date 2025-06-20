@@ -1,30 +1,58 @@
 "use client"
-import { motion } from "framer-motion";
+import PillButton from "../PillButton";
 
-type Props = {
+interface ButtonProps {
+  variant?: "contact" | "resume" | "secondary";
   label: string;
-  onClick?: any;
-  variant: "contact" | "resume" | "secondary";
-};
-
-function HSButtons({ variant, label, onClick }: Props) {
-  const options: any = {
-    contact: "bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300",
-    resume: "border-2 border-yellow-500 text-white font-semibold hover:bg-yellow-500 hover:text-white transition-all duration-300 hover:scale-105",
-    secondary: "border-2 border-gray-500 text-gray-300 font-semibold hover:border-yellow-500 hover:text-yellow-500 transition-all duration-300 hover:scale-105",
-  };
-  
-  return (
-    <motion.button 
-      className={`${options[variant]} px-8 py-4 rounded-lg text-sm lg:text-base font-medium`} 
-      onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-    >
-      {label}
-    </motion.button>
-  );
+  onClick?: () => void;
 }
+
+const HSButtons = ({ variant = "contact", label, onClick }: ButtonProps) => {
+  if (variant === "contact") {
+    return (
+      <PillButton
+        label={label}
+        onClick={onClick}
+        variant="secondary"
+        size="full"
+        icon={
+          <svg
+            className="w-4 h-4 sm:w-5 sm:h-5 text-black transition-transform duration-300 group-hover:translate-x-1"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              d="M13 7l5 5m0 0l-5 5m5-5H6"
+            />
+          </svg>
+        }
+      />
+    );
+  }
+
+  if (variant === "resume") {
+    return (
+      <PillButton
+        variant="tertiary"
+        size="full"
+        label={label}
+        onClick={onClick}
+      />
+    );
+  }
+
+  return (
+    <PillButton
+      variant="tertiary"
+      size="full"
+      label={label}
+      onClick={onClick}
+    />
+  );
+};
 
 export default HSButtons;
