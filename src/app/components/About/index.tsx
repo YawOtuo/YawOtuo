@@ -1,43 +1,50 @@
 "use client";
 
-import { motion } from "framer-motion";
 import useAboutData from "./useAbout";
-import { Section, SectionHeader } from "../ui/section";
-import { LuGraduationCap, LuMapPin, LuBriefcase } from "react-icons/lu";
+import {
+  Section,
+  SectionHeader,
+  SectionLoader,
+  SectionError,
+} from "../ui/section";
+import Reveal from "../ui/reveal";
 
-const getYearsExperience = () => {
-  const startYear = 2021;
-  const currentYear = new Date().getFullYear();
-  return currentYear - startYear;
-};
+const START_YEAR = 2021;
 
-const highlights = [
-  {
-    icon: LuBriefcase,
-    label: "Years Experience",
-    value: `${getYearsExperience()}+`,
-  },
-  {
-    icon: LuGraduationCap,
-    label: "Education",
-    value: "BSc Computer Engineering",
-  },
-  {
-    icon: LuMapPin,
-    label: "Location",
-    value: "Ghana",
-  },
+const whatIDo = [
+  "Full Stack Development",
+  "AI Integration",
+  "Mobile Apps",
+  "Cloud Architecture",
+  "Startup Consulting",
 ];
+
+const fallbackBio = [
+  "I'm Yaw Otuo, a Full Stack Developer & AI Enthusiast from Ghana who crafts efficient, scalable solutions that make a real difference.",
+  "My journey started with a simple goal: to turn wild ideas into digital reality. Today, I've helped startups like African Bully Registry go from concept to international recognition.",
+  "I'm pursuing a BSc in Computer Engineering at Kwame Nkrumah University of Science and Technology, combining academic knowledge with real-world experience.",
+];
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-2">
+        {label}
+      </p>
+      <p className="text-3xl lg:text-4xl font-extrabold tracking-tighter leading-tight">
+        {value}
+      </p>
+    </div>
+  );
+}
 
 function About() {
   const { aboutData, loading, error } = useAboutData();
 
   if (loading) {
     return (
-      <Section id="about" className="min-h-[60vh]">
-        <div className="flex items-center justify-center flex-1">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
-        </div>
+      <Section id="about">
+        <SectionLoader />
       </Section>
     );
   }
@@ -45,99 +52,61 @@ function About() {
   if (error) {
     return (
       <Section id="about">
-        <p className="text-red-400 text-center">
-          Error loading about data. Please try again later.
-        </p>
+        <SectionError message="Couldn't load the about section. Please try again later." />
       </Section>
     );
   }
 
-  const bioParagraphs = aboutData?.generalInfo?.length
-    ? aboutData.generalInfo
-    : [
-        "Hello! I'm Yaw Otuo, a Full Stack Developer & AI Enthusiast from Ghana who's passionate about crafting efficient, scalable solutions that make a real difference.",
-        "My journey started with a simple goal: to turn wild ideas into digital reality. Today, I've helped startups like African Bully Registry go from concept to international recognition.",
-        "Currently pursuing Computer Engineering at Kwame Nkrumah University of Science and Technology, I combine academic knowledge with real-world experience to deliver exceptional results.",
-      ];
+  const years = new Date().getFullYear() - START_YEAR;
+  const bio = aboutData?.generalInfo?.length ? aboutData.generalInfo : fallbackBio;
+  const [lead, ...rest] = bio;
 
   return (
     <Section id="about">
-      <SectionHeader
-        title="About Me"
-        subtitle="Get to know the person behind the code"
-      />
+      <SectionHeader index="01" title="About" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        {/* Bio */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          viewport={{ once: true }}
-          className="lg:col-span-7 space-y-6"
-        >
-          <div className="bg-surface rounded-2xl p-6 sm:p-8 lg:p-10">
-            <h3 className="text-xl sm:text-2xl font-bold text-accent mb-6">
-              From Ghana to Global Impact
-            </h3>
-            <div className="space-y-4">
-              {bioParagraphs.map((paragraph, index) => (
-                <p
-                  key={index}
-                  className="text-muted text-base lg:text-lg leading-relaxed"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-20">
+        <Reveal className="lg:col-span-7">
+          <p
+            className={
+              lead.length < 260
+                ? "text-2xl lg:text-3xl font-semibold leading-snug tracking-tight"
+                : "text-lg lg:text-xl text-muted leading-relaxed"
+            }
+          >
+            {lead}
+          </p>
+          <div className="mt-8 space-y-5">
+            {rest.map((paragraph, index) => (
+              <p
+                key={index}
+                className="text-muted text-base lg:text-lg leading-relaxed"
+              >
+                {paragraph}
+              </p>
+            ))}
           </div>
-        </motion.div>
+        </Reveal>
 
-        {/* Highlights */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="lg:col-span-5 space-y-4"
-        >
-          {highlights.map((item, index) => (
-            <div
-              key={item.label}
-              className="p-5 flex items-center gap-4"
-            >
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent-subtle flex items-center justify-center">
-                <item.icon className="text-accent" size={22} />
-              </div>
-              <div>
-                <p className="text-2xl lg:text-3xl font-bold text-white">
-                  {item.value}
-                </p>
-                <p className="text-muted-foreground text-sm">{item.label}</p>
-              </div>
-            </div>
-          ))}
+        <Reveal delay={0.1} className="lg:col-span-5 space-y-10">
+          <Stat label="Experience" value={`${years}+ years`} />
+          <Stat label="Education" value="BSc Computer Engineering" />
+          <Stat label="Based in" value="Ghana" />
 
-          <div className="p-5">
-            <h4 className="text-white font-semibold mb-3">What I Do</h4>
-            <div className="flex flex-wrap gap-2">
-              {[
-                "Full Stack Development",
-                "AI Integration",
-                "Mobile Apps",
-                "Cloud Architecture",
-                "Startup Consulting",
-              ].map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-accent-subtle text-accent"
-                >
-                  {skill}
-                </span>
+          <div>
+            <p className="font-mono text-xs uppercase tracking-wider text-muted-foreground mb-4">
+              What I do
+            </p>
+            <ul className="space-y-2">
+              {whatIDo.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-lg font-medium">
+                  <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
-        </motion.div>
+        </Reveal>
       </div>
     </Section>
   );

@@ -4,44 +4,45 @@ import { cn } from "@/app/lib/utils";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-type SectionProps = {
-  children: ReactNode;
-  className?: string;
-  id?: string;
-  padded?: boolean;
-};
-
-export function Section({
+export function Container({
   children,
   className,
-  id,
-  padded = true,
-}: SectionProps) {
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <section
-      id={id}
-      className={cn(
-        "w-full flex flex-col justify-center",
-        padded && "py-20 lg:py-32 px-4 sm:px-6 lg:px-20",
-        className
-      )}
-    >
+    <div className={cn("w-full max-w-6xl mx-auto px-6 md:px-10", className)}>
       {children}
+    </div>
+  );
+}
+
+type SectionProps = {
+  children: ReactNode;
+  id?: string;
+  className?: string;
+};
+
+export function Section({ children, id, className }: SectionProps) {
+  return (
+    <section id={id} className={cn("w-full py-24 lg:py-36", className)}>
+      <Container>{children}</Container>
     </section>
   );
 }
 
 type SectionHeaderProps = {
+  index: string;
   title: string;
   subtitle?: string;
-  centered?: boolean;
   className?: string;
 };
 
 export function SectionHeader({
+  index,
   title,
   subtitle,
-  centered = true,
   className,
 }: SectionHeaderProps) {
   return (
@@ -50,16 +51,29 @@ export function SectionHeader({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className={cn(centered && "text-center", "mb-12 lg:mb-16", className)}
+      className={cn("mb-14 lg:mb-20", className)}
     >
-      <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 tracking-tight">
+      <p className="font-mono text-sm text-accent-ink mb-4">{index}</p>
+      <h2 className="text-5xl sm:text-6xl lg:text-8xl font-extrabold tracking-tighter leading-[0.95]">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-muted text-base sm:text-lg lg:text-xl max-w-2xl mx-auto">
+        <p className="text-muted text-lg lg:text-xl max-w-xl mt-6">
           {subtitle}
         </p>
       )}
     </motion.div>
   );
+}
+
+export function SectionLoader() {
+  return (
+    <div className="py-24 text-center font-mono text-sm text-muted-foreground animate-pulse">
+      loading…
+    </div>
+  );
+}
+
+export function SectionError({ message }: { message: string }) {
+  return <p className="py-24 text-center text-muted">{message}</p>;
 }

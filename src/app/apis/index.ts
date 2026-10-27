@@ -40,11 +40,23 @@ export const fetchAboutData = async () => {
 
 export const fetchProjectsData = async () => {
   try {
-    // Fetch data from Sanity.io
-    const data = await client.fetch('*[_type == "project"] | order(priority asc)');
+    // The featured project has its own section, so it's excluded from the grid
+    const data = await client.fetch('*[_type == "project" && featured != true] | order(priority asc)');
     return data;
   } catch (error) {
     console.error('Error fetching data from Sanity.io:', error);
     return [];
+  }
+};
+
+export const fetchFeaturedProject = async () => {
+  try {
+    const data = await client.fetch(
+      '*[_type == "project" && featured == true] | order(priority asc)[0]'
+    );
+    return data ?? null;
+  } catch (error) {
+    console.error('Error fetching data from Sanity.io:', error);
+    return null;
   }
 };

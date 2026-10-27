@@ -3,7 +3,6 @@
 import { useNavMobileMenuStore } from "../NavMobile/components/useNavMobileMenuStore";
 import Logo from "../Logo";
 import useNavbar from "./useNavbar";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { cn } from "@/app/lib/utils";
 
 function Navbar() {
@@ -11,52 +10,57 @@ function Navbar() {
   const { setNavMobileMenuStore } = useNavMobileMenuStore();
 
   return (
-    <>
-      {/* Desktop Navbar */}
-      <nav className="hidden lg:flex fixed top-4 left-1/2 -translate-x-1/2 z-50">
-        <div className="flex items-center gap-2 px-2 py-2 rounded-full bg-surface shadow-lg shadow-black/20">
-          <div className="pl-3 pr-2">
-            <Logo />
-          </div>
-          <div className="h-4 w-px bg-surface-elevated"></div>
-          <ul className="flex items-center gap-1">
-            {links.map((link) => {
+    <header className="fixed top-0 inset-x-0 z-50 bg-[rgba(250,249,246,0.85)] backdrop-blur-md">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Back to top"
+        >
+          <Logo />
+        </button>
+
+        {/* Desktop */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {links
+            .filter((link) => link.url !== "letstalk")
+            .map((link) => {
               const isActive = activeSection === link.url;
               return (
-                <li key={link.url}>
-                  <button
-                    onClick={() => handleLinkClick(link.url)}
-                    className={cn(
-                      "relative px-4 py-2 text-sm font-medium rounded-full transition-all duration-300",
-                      isActive
-                        ? "text-black"
-                        : "text-muted hover:text-white"
-                    )}
-                  >
-                    {isActive && (
-                      <span className="absolute inset-0 bg-accent rounded-full"></span>
-                    )}
-                    <span className="relative z-10">{link.name}</span>
-                  </button>
-                </li>
+                <button
+                  key={link.url}
+                  onClick={() => handleLinkClick(link.url)}
+                  className={cn(
+                    "relative text-sm font-medium transition-colors duration-200 py-1",
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted hover:text-foreground"
+                  )}
+                >
+                  {link.name}
+                  {isActive && (
+                    <span className="absolute left-0 right-0 -bottom-0.5 h-[3px] bg-accent rounded-full" />
+                  )}
+                </button>
               );
             })}
-          </ul>
-        </div>
-      </nav>
+          <button
+            onClick={() => handleLinkClick("letstalk")}
+            className="ml-2 px-5 py-2.5 rounded-full bg-foreground text-background text-sm font-semibold hover:bg-accent hover:text-foreground transition-colors duration-200"
+          >
+            Let&apos;s talk
+          </button>
+        </nav>
 
-      {/* Mobile Navbar */}
-      <div className="w-full lg:hidden fixed top-0 left-0 right-0 flex items-center justify-between px-5 py-4 z-50 bg-surface">
-        <Logo />
+        {/* Mobile */}
         <button
           onClick={() => setNavMobileMenuStore(true)}
-          className="p-2 rounded-full hover:bg-surface transition-colors"
+          className="lg:hidden font-mono text-sm py-2"
           aria-label="Open menu"
         >
-          <GiHamburgerMenu color="white" size={20} />
+          menu +
         </button>
       </div>
-    </>
+    </header>
   );
 }
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,20 +6,27 @@
 
 :root {
   --font-montserrat: 'Montserrat', system-ui, sans-serif;
-  --background: #020213;
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-elevated: rgba(255, 255, 255, 0.08);
-  --surface-hover: rgba(255, 255, 255, 0.12);
-  --foreground: #ffffff;
-  --muted: rgba(255, 255, 255, 0.65);
-  --muted-foreground: rgba(255, 255, 255, 0.5);
-  --accent: #e6af2e;
-  --accent-hover: #f0bd45;
-  --accent-subtle: rgba(230, 175, 46, 0.15);
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --background: #faf9f6;
+  --foreground: #111111;
+  --muted: rgba(17, 17, 17, 0.62);
+  --muted-foreground: rgba(17, 17, 17, 0.45);
+
+  --surface: rgba(17, 17, 17, 0.04);
+  --surface-elevated: rgba(17, 17, 17, 0.07);
+  --surface-hover: rgba(17, 17, 17, 0.1);
+
+  /* Gold is used as a fill (with dark text on top). accent-ink is the
+     darker shade used when the accent has to be readable as text. */
+  --accent: #f2b72b;
+  --accent-hover: #ffc83d;
+  --accent-ink: #8f5d00;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -31,22 +38,12 @@ body {
 }
 
 ::selection {
-  background: var(--accent-subtle);
-  color: var(--accent);
+  background: var(--accent);
+  color: var(--foreground);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
-  }
-}
-
-@layer components {
-  .card {
-    @apply bg-surface rounded-2xl;
-  }
-
-  .card-elevated {
-    @apply bg-surface-elevated rounded-2xl;
   }
 }

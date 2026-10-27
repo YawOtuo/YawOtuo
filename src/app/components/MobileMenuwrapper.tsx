@@ -14,7 +14,7 @@ const MobileMenuWrapper = ({ children }: Props) => {
   );
   return (
     <>
-      <NavMobile isOpen={navMobileMenu} layout />
+      <NavMobile isOpen={navMobileMenu} />
       {children}
     </>
   );

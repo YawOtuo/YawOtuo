@@ -1,10 +1,15 @@
 "use client";
 
-import { motion } from "framer-motion";
 import useAboutData, { TechSkill } from "../About/useAbout";
-import TSPill from "./TSPill";
-import { Section, SectionHeader } from "../ui/section";
+import {
+  Section,
+  SectionHeader,
+  SectionLoader,
+  SectionError,
+} from "../ui/section";
+import Reveal from "../ui/reveal";
 
+// Used for legacy string-only entries and when Sanity has no tech stack yet
 const fallbackCategoryMap: Record<string, string[]> = {
   Frontend: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS"],
   Backend: ["Node.js", "Python", "Django", "FastAPI", "NestJS"],
@@ -12,81 +17,58 @@ const fallbackCategoryMap: Record<string, string[]> = {
   "Tools & Cloud": ["AWS", "Git", "Docker", "Figma", "Postman", "VS Code"],
 };
 
-function isValidSkill(item: unknown): item is TechSkill {
-  return (
-    item !== null &&
-    typeof item === "object" &&
-    item !== undefined &&
-    "name" in item &&
-    typeof (item as TechSkill).name === "string" &&
-    (item as TechSkill).name.trim() !== ""
-  );
-}
+const NO_PRIORITY = Number.MAX_SAFE_INTEGER;
 
 function normalizeTechStack(
   techStack: (string | TechSkill | null | undefined)[] | undefined
 ): TechSkill[] {
   if (!techStack) return [];
 
-  return techStack
-    .filter((item): item is string | TechSkill => item !== null && item !== undefined)
-    .map((item): TechSkill => {
-      if (typeof item === "string") {
-        // Backward compatibility: map string skills to categories
-        for (const [category, skills] of Object.entries(fallbackCategoryMap)) {
-          if (skills.includes(item)) {
-            return { name: item, category: { _id: category, name: category } };
-          }
-        }
-        return { name: item, category: { _id: "Other", name: "Other" } };
-      }
+  const skills: TechSkill[] = [];
 
-      // Ensure category has a usable name
-      const categoryName =
-        item.category && typeof item.category === "object"
-          ? item.category.name || "Other"
-          : "Other";
+  for (const item of techStack) {
+    if (!item) continue;
 
-      return {
-        name: item.name,
-        category: {
-          _id: item.category?._id || categoryName,
-          name: categoryName,
-          priority: item.category?.priority,
-        },
-      };
-    })
-    .filter(isValidSkill);
-}
-
-function groupByCategory(skills: TechSkill[]) {
-  const grouped: Record<string, TechSkill[]> = {};
-
-  skills.forEach((skill) => {
-    const categoryName = skill.category?.name || "Other";
-    if (!grouped[categoryName]) {
-      grouped[categoryName] = [];
+    if (typeof item === "string") {
+      const category =
+        Object.entries(fallbackCategoryMap).find(([, list]) =>
+          list.includes(item)
+        )?.[0] ?? "Other";
+      skills.push({ name: item, category: { _id: category, name: category } });
+      continue;
     }
-    grouped[categoryName].push(skill);
-  });
 
-  return grouped;
+    if (typeof item.name !== "string" || !item.name.trim()) continue;
+
+    const categoryName = item.category?.name || "Other";
+    skills.push({
+      name: item.name,
+      category: {
+        _id: item.category?._id || categoryName,
+        name: categoryName,
+        priority: item.category?.priority,
+      },
+    });
+  }
+
+  return skills;
 }
 
-function getCategoryOrder(skills: TechSkill[]): string[] {
-  const categories = new Map<string, number>();
+function groupSkills(skills: TechSkill[]) {
+  const groups = new Map<
+    string,
+    { name: string; priority: number; skills: TechSkill[] }
+  >();
 
-  skills.forEach((skill) => {
+  for (const skill of skills) {
     const name = skill.category?.name || "Other";
-    const priority = skill.category?.priority ?? Infinity;
-    if (!categories.has(name)) {
-      categories.set(name, priority);
-    }
-  });
+    const priority = skill.category?.priority ?? NO_PRIORITY;
+    const group = groups.get(name) ?? { name, priority, skills: [] };
+    group.skills.push(skill);
+    groups.set(name, group);
+  }
 
-  return Array.from(categories.entries())
-    .sort((a, b) => a[1] - b[1])
-    .map(([name]) => name);
+  return Array.from(groups.values()).sort((a, b) => a.priority - b.priority);
 }
 
 function TechStack() {
@@ -94,10 +76,8 @@ function TechStack() {
 
   if (loading) {
     return (
-      <Section id="tech-stack" className="min-h-[60vh]">
-        <div className="flex items-center justify-center flex-1">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
-        </div>
+      <Section id="tech-stack">
+        <SectionLoader />
       </Section>
     );
   }
@@ -105,59 +85,54 @@ function TechStack() {
   if (error) {
     return (
       <Section id="tech-stack">
-        <p className="text-red-400 text-center">
-          Error loading tech stack data. Please try again later.
-        </p>
+        <SectionError message="Couldn't load the tech stack. Please try again later." />
       </Section>
     );
   }
 
-  const normalizedSkills = normalizeTechStack(aboutData?.techStack);
-  const skillsToDisplay =
-    normalizedSkills.length > 0
-      ? normalizedSkills
-      : Object.entries(fallbackCategoryMap).flatMap(([category, skills]) =>
-          skills.map((name) => ({
-            name,
-            category: { _id: category, name: category },
-          }))
-        );
+  const fromSanity = normalizeTechStack(aboutData?.techStack);
+  const skills = fromSanity.length
+    ? fromSanity
+    : Object.entries(fallbackCategoryMap).flatMap(([category, list]) =>
+        list.map((name) => ({ name, category: { _id: category, name: category } }))
+      );
 
-  const grouped = groupByCategory(skillsToDisplay);
-  const categoryOrder = getCategoryOrder(skillsToDisplay);
+  const groups = groupSkills(skills);
 
   return (
     <Section id="tech-stack">
       <SectionHeader
-        title="Tech Stack"
-        subtitle="The tools and technologies I use to turn ideas into reality"
+        index="04"
+        title="Tech stack"
+        subtitle="The tools I reach for to turn ideas into working products."
       />
 
-      <div className="space-y-10 lg:space-y-14">
-        {categoryOrder.map((category) => {
-          const items = grouped[category];
-          if (!items?.length) return null;
-
-          return (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-accent"></span>
-                {category}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
-                {items.map((tech, index) => (
-                  <TSPill key={tech.name} data={tech.name} index={index} />
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
+      <div className="space-y-12 lg:space-y-16">
+        {groups.map((group) => (
+          <Reveal
+            key={group.name}
+            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8"
+          >
+            <p className="md:col-span-3 font-mono text-sm text-accent-ink md:pt-3">
+              {group.name}
+            </p>
+            <ul className="md:col-span-9 flex flex-wrap items-baseline gap-x-3 gap-y-2">
+              {group.skills.map((skill, index) => (
+                <li
+                  key={skill.name}
+                  className="text-3xl lg:text-5xl font-extrabold tracking-tighter"
+                >
+                  {skill.name}
+                  {index < group.skills.length - 1 && (
+                    <span className="text-muted-foreground font-medium ml-3">
+                      /
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        ))}
       </div>
     </Section>
   );

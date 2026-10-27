@@ -1,19 +1,19 @@
-import { urlFor } from "@/app/utils/sanity-image";
-import Image from "next/image";
-import { FaGithub, FaYoutube, FaExternalLinkAlt } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { useState } from "react";
+"use client";
 
-type ProjectType = {
+import Image from "next/image";
+import { LuArrowUpRight } from "react-icons/lu";
+import { urlFor } from "@/app/utils/sanity-image";
+
+export type ProjectType = {
+  _id?: string;
   title: string;
   description: string;
-  technologies: string[];
-  image: any;
+  technologies?: string[];
+  image?: any;
   link?: string;
   githubLink?: string;
   youtubeLink?: string;
-  category?: string;
-  featured?: boolean;
+  year?: string;
 };
 
 type Props = {
@@ -21,123 +21,84 @@ type Props = {
   index: number;
 };
 
+function ProjectLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1 font-semibold underline decoration-accent decoration-[3px] underline-offset-4 hover:decoration-foreground transition-colors"
+    >
+      {label}
+      <LuArrowUpRight size={16} />
+    </a>
+  );
+}
+
 function ProjectCard({ data, index }: Props) {
-  const [isHovered, setIsHovered] = useState(false);
+  const imageUrl = data.image ? urlFor(data.image)?.url() : null;
+  const primaryLink = data.link || data.githubLink || data.youtubeLink;
+
+  const image = (
+    <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-surface-elevated">
+      {imageUrl && (
+        <Image
+          src={imageUrl}
+          alt={data.title}
+          fill
+          sizes="(min-width: 768px) 480px, 100vw"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      )}
+    </div>
+  );
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="group h-full"
-    >
-      <div className="bg-surface rounded-2xl overflow-hidden h-full flex flex-col hover:bg-surface-elevated transition-colors duration-300">
-        {/* Project Image */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden">
-          <Image
-            src={urlFor(data?.image)?.url()}
-            fill
-            alt={data?.title}
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+    <article className="group">
+      {primaryLink ? (
+        <a
+          href={primaryLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${data.title}`}
+          className="block"
+        >
+          {image}
+        </a>
+      ) : (
+        image
+      )}
 
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: isHovered ? 1 : 0 }}
-              transition={{ duration: 0.25 }}
-              className="text-white text-center"
-            >
-              <FaExternalLinkAlt className="mx-auto text-2xl" />
-            </motion.div>
-          </div>
-
-          {data?.featured && (
-            <div className="absolute top-3 left-3 px-2.5 py-1 bg-accent text-black text-xs font-bold rounded-full">
-              Featured
-            </div>
-          )}
-
-          {data?.category && (
-            <div className="absolute top-3 right-3 px-2.5 py-1 text-xs font-medium rounded-full bg-accent-subtle text-accent">
-              {data.category}
-            </div>
-          )}
-        </div>
-
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1">
-          <h3 className="text-lg lg:text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors duration-300">
-            {data?.title}
-          </h3>
-
-          <p className="text-muted text-sm leading-relaxed mb-4 line-clamp-3 flex-1">
-            {data?.description}
-          </p>
-
-          {data?.technologies && data.technologies.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mb-5">
-              {data.technologies.slice(0, 5).map((tech, idx) => (
-                <span
-                  key={idx}
-                  className="px-2.5 py-1 bg-surface-elevated text-muted-foreground text-xs rounded-full"
-                >
-                  {tech}
-                </span>
-              ))}
-              {data.technologies.length > 5 && (
-                <span className="px-2.5 py-1 text-muted-foreground text-xs">
-                  +{data.technologies.length - 5}
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Links */}
-          <div className="flex items-center gap-2 pt-4 mt-auto">
-            {data?.link && (
-              <a
-                target="_blank"
-                href={data.link}
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 bg-accent text-black text-xs font-semibold rounded-lg hover:bg-accent-hover transition-colors duration-300"
-              >
-                <FaExternalLinkAlt size={11} />
-                Live
-              </a>
-            )}
-
-            {data?.githubLink && (
-              <a
-                target="_blank"
-                href={data.githubLink}
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 bg-surface-elevated text-white text-xs font-semibold rounded-lg hover:bg-surface-hover transition-colors duration-300"
-              >
-                <FaGithub size={12} />
-                Code
-              </a>
-            )}
-
-            {data?.youtubeLink && (
-              <a
-                target="_blank"
-                href={data.youtubeLink}
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 px-3 py-2 bg-red-600/90 text-white text-xs font-semibold rounded-lg hover:bg-red-500 transition-colors duration-300"
-              >
-                <FaYoutube size={12} />
-                Demo
-              </a>
-            )}
-          </div>
-        </div>
+      <div className="mt-6 flex items-baseline justify-between gap-4">
+        <h3 className="text-2xl lg:text-4xl font-extrabold tracking-tighter leading-tight">
+          <span className="font-mono text-sm font-normal text-accent-ink mr-3 align-middle">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          {data.title}
+        </h3>
+        {data.year && (
+          <span className="font-mono text-sm text-muted-foreground shrink-0">
+            {data.year}
+          </span>
+        )}
       </div>
-    </motion.div>
+
+      <p className="text-muted leading-relaxed mt-3 line-clamp-3">
+        {data.description}
+      </p>
+
+      {!!data.technologies?.length && (
+        <p className="font-mono text-xs text-muted-foreground mt-4 leading-relaxed">
+          {data.technologies.join("  ·  ")}
+        </p>
+      )}
+
+      <div className="flex flex-wrap gap-x-6 gap-y-2 mt-5">
+        {data.link && <ProjectLink href={data.link} label="Live" />}
+        {data.githubLink && <ProjectLink href={data.githubLink} label="Code" />}
+        {data.youtubeLink && <ProjectLink href={data.youtubeLink} label="Demo" />}
+      </div>
+    </article>
   );
 }
 

@@ -6,6 +6,13 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'email',
+      title: 'Contact email',
+      type: 'string',
+      description: 'Shown in the "Let\'s talk" section and the mobile menu.',
+      validation: (Rule) => Rule.email(),
+    }),
+    defineField({
       name: 'generalInfo',
       title: 'General Information',
       type: 'array',

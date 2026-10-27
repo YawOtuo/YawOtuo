@@ -6,20 +6,22 @@ import Navbar from "./components/Navbar";
 import Projects from "./components/Projects";
 import ScrollProgress from "./components/framer/scroll-progress";
 import LetsTalk from "./components/LetsTalk";
+import Footer from "./components/Footer";
+import Featured from "./components/Featured";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center w-full overflow-x-hidden text-white">
+    <main className="relative w-full overflow-x-hidden">
       <ScrollProgress />
       <Navbar />
-      <div className="w-full pt-16 lg:pt-0">
-        <HeroSection />
-      </div>
+      <HeroSection />
       <About />
+      <Featured />
       <Experience />
       <TechStack />
       <Projects />
       <LetsTalk />
+      <Footer />
     </main>
   );
 }

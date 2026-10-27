@@ -1,109 +1,71 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { LuArrowUpRight } from "react-icons/lu";
 import { Section, SectionHeader } from "../ui/section";
-import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
-import { LuMail, LuArrowUpRight } from "react-icons/lu";
-
-const contactOptions = [
-  {
-    name: "Email",
-    value: "yotuo2003@gmail.com",
-    href: "mailto:yotuo2003@gmail.com",
-    icon: LuMail,
-    description: "Send me an email and I'll reply within 24 hours.",
-    color: "text-accent",
-    bgColor: "bg-accent-subtle",
-  },
-  {
-    name: "WhatsApp",
-    value: "+233 20 377 5123",
-    href: "https://wa.me/+233203775123",
-    icon: FaWhatsapp,
-    description: "Message me directly for quick responses.",
-    color: "text-green-400",
-    bgColor: "bg-green-500/15",
-  },
-  {
-    name: "LinkedIn",
-    value: "Yaw Otuo",
-    href: "https://www.linkedin.com/in/yaw-otuo/",
-    icon: FaLinkedin,
-    description: "Connect with me professionally.",
-    color: "text-blue-400",
-    bgColor: "bg-blue-500/15",
-  },
-  {
-    name: "GitHub",
-    value: "YawOtuo",
-    href: "https://github.com/YawOtuo",
-    icon: FaGithub,
-    description: "Check out my code and contributions.",
-    color: "text-white",
-    bgColor: "bg-surface-elevated",
-  },
-];
+import Reveal from "../ui/reveal";
+import { useContactChannels } from "./channels";
 
 function LetsTalk() {
+  const { email, socials } = useContactChannels();
+
   return (
     <Section id="letstalk">
       <SectionHeader
-        title="Let's Talk"
-        subtitle="Have a project in mind? Pick the channel that works best for you."
+        index="06"
+        title="Let's talk"
+        subtitle="Have a project or an idea? Reach out on whichever channel suits you."
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-        {contactOptions.map((option, index) => (
-          <motion.a
-            key={option.name}
-            href={option.href}
-            target={option.href.startsWith("mailto") ? undefined : "_blank"}
-            rel={option.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -5 }}
-            className="group bg-surface rounded-2xl p-6 hover:bg-surface-elevated transition-colors duration-300 flex flex-col"
-          >
-            <div className="flex items-start justify-between mb-5">
-              <div
-                className={`w-12 h-12 rounded-xl ${option.bgColor} flex items-center justify-center`}
-              >
-                <option.icon className={`${option.color}`} size={22} />
-              </div>
-              <LuArrowUpRight
-                className="text-muted-foreground group-hover:text-accent transition-colors"
-                size={20}
-              />
-            </div>
+      {/* Email — the primary way to reach me (only once it is set in Sanity) */}
+      {email && (
+      <Reveal>
+        <a
+          href={email.href}
+          className="group block rounded-3xl bg-accent hover:bg-accent-hover transition-colors duration-200 p-8 lg:p-14"
+        >
+          <div className="flex items-start justify-between gap-6">
+            <p className="font-mono text-sm">Email me</p>
+            <LuArrowUpRight
+              size={36}
+              className="shrink-0 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+            />
+          </div>
+          <p className="mt-10 lg:mt-16 text-3xl sm:text-5xl lg:text-7xl font-extrabold tracking-tighter break-all leading-none">
+            {email.value}
+          </p>
+        </a>
+      </Reveal>
+      )}
 
-            <div className="flex-1">
-              <p className="text-muted-foreground text-sm mb-1">{option.name}</p>
-              <p className="text-white font-semibold text-lg mb-3">
-                {option.value}
-              </p>
-              <p className="text-muted text-sm leading-relaxed">
-                {option.description}
-              </p>
-            </div>
-          </motion.a>
+      {/* Other channels */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        {socials.map((channel, index) => (
+          <Reveal key={channel.name} delay={index * 0.08}>
+            <a
+              href={channel.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex h-full flex-col justify-between gap-10 rounded-3xl bg-surface hover:bg-surface-elevated transition-colors duration-200 p-6 lg:p-8"
+            >
+              <div className="flex items-start justify-between">
+                <channel.icon size={28} />
+                <LuArrowUpRight
+                  size={24}
+                  className="text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-foreground"
+                />
+              </div>
+              <div>
+                <p className="font-mono text-sm text-muted mb-1">
+                  {channel.name}
+                </p>
+                <p className="text-xl lg:text-2xl font-extrabold tracking-tight break-all">
+                  {channel.value}
+                </p>
+              </div>
+            </a>
+          </Reveal>
         ))}
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        viewport={{ once: true }}
-        className="mt-12 text-center"
-      >
-        <p className="text-muted text-base max-w-xl mx-auto">
-          I&apos;m currently open to freelance projects, full-time roles, and
-          collaboration opportunities. Let&apos;s build something amazing
-          together.
-        </p>
-      </motion.div>
     </Section>
   );
 }

@@ -1,10 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import "swiper/css/effect-coverflow";
 import MobileMenuWrapper from "./components/MobileMenuwrapper";
 
 export const metadata: Metadata = {
@@ -20,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-background">
-      <body className="font-sans max-w-7xl mx-auto antialiased">
+      <body className="font-sans antialiased text-foreground">
         <MobileMenuWrapper>{children}</MobileMenuWrapper>
       </body>
     </html>

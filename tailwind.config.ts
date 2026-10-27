@@ -10,31 +10,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
       colors: {
         background: "var(--background)",
-        surface: "var(--surface)",
-        "surface-elevated": "var(--surface-elevated)",
-        border: "var(--border)",
-        "border-subtle": "var(--border-subtle)",
         foreground: "var(--foreground)",
         muted: "var(--muted)",
         "muted-foreground": "var(--muted-foreground)",
+        surface: "var(--surface)",
+        "surface-elevated": "var(--surface-elevated)",
+        "surface-hover": "var(--surface-hover)",
         accent: "var(--accent)",
         "accent-hover": "var(--accent-hover)",
-        "accent-subtle": "var(--accent-subtle)",
-        yellow1: "#E6AF2E",
-        yellow2: "#D5AC4E",
-        yellow3: "#B57F50",
-        yellow4: "#C8963E",
-        purple1: "#020213",
+        "accent-ink": "var(--accent-ink)",
       },
       fontFamily: {
-        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
+        sans: ["var(--font-montserrat)"],
+        mono: ["var(--font-mono)"],
       },
     },
   },

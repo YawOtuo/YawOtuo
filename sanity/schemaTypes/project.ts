@@ -52,9 +52,90 @@ export default defineType({
       },
     }),
     defineField({
+      name: "year",
+      title: "Year",
+      type: "string",
+      description: "Shown next to the project title, e.g. 2024",
+    }),
+    defineField({
       name: "priority",
       title: "priority",
       type: "number",
+    }),
+
+    // --- Featured project (shown in its own section instead of the grid) ---
+    defineField({
+      name: "featured",
+      title: "Featured project",
+      type: "boolean",
+      description:
+        "Show this project in the big featured section instead of the projects grid. Only the first featured project (by priority) is shown.",
+      initialValue: false,
+    }),
+    defineField({
+      name: "role",
+      title: "Your role",
+      type: "string",
+      description: "e.g. Founder & CEO",
+      hidden: ({ document }) => !document?.featured,
+    }),
+    defineField({
+      name: "since",
+      title: "Since",
+      type: "string",
+      description: "e.g. 2023",
+      hidden: ({ document }) => !document?.featured,
+    }),
+    defineField({
+      name: "appStoreLink",
+      title: "iOS App Store link",
+      type: "url",
+      hidden: ({ document }) => !document?.featured,
+    }),
+    defineField({
+      name: "playStoreLink",
+      title: "Google Play link",
+      type: "url",
+      hidden: ({ document }) => !document?.featured,
+    }),
+    defineField({
+      name: "stats",
+      title: "Stats",
+      type: "array",
+      description: "Numbers shown under the featured project, e.g. 150 / Farms",
+      hidden: ({ document }) => !document?.featured,
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({
+              name: "value",
+              title: "Number",
+              type: "number",
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: "suffix",
+              title: "Suffix",
+              type: "string",
+              description: 'Optional, e.g. "+"',
+            }),
+            defineField({
+              name: "label",
+              title: "Label",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: { value: "value", suffix: "suffix", label: "label" },
+            prepare: ({ value, suffix, label }) => ({
+              title: `${value ?? ""}${suffix ?? ""}`,
+              subtitle: label,
+            }),
+          },
+        },
+      ],
     }),
   ],
 });

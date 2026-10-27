@@ -14,6 +14,7 @@ export interface TechSkill {
 
 export interface AboutData {
   _id: string;
+  email?: string;
   generalInfo?: string[];
   techStack?: (string | TechSkill | null | undefined)[];
   education?: Array<{
