@@ -8,6 +8,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "24.x"
+  },
   "dependencies": {
     "@lottiefiles/react-lottie-player": "^3.6.0",
     "@nextui-org/input": "^2.1.21",
