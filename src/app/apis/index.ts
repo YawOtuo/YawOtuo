@@ -22,8 +22,13 @@ export const fetchExperienceData = async () => {
 
 export const fetchAboutData = async () => {
   try {
-    // Fetch data from Sanity.io
-    const data = await client.fetch('*[_type == "about"]');
+    const data = await client.fetch(`*[_type == "about"] {
+      ...,
+      techStack[] {
+        name,
+        category->
+      }
+    }`);
     return data;
   } catch (error) {
     console.error('Error fetching data from Sanity.io:', error);

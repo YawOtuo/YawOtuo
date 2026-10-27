@@ -1,188 +1,124 @@
 "use client";
-import { Swiper, SwiperRef, SwiperSlide } from "swiper/react";
-import ProjectsCard from "./ProjectCard";
-import useProjectsData from "./useProjectsData";
-import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
-import ProjectsQuote from "./ProjectsQuotes";
-import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import developer1Json from "@/app/lotties/rocket2.json";
-import LottieFileBuilder from "../LottieFileBuilder";
-import { useRef } from "react";
+
 import { motion } from "framer-motion";
+import ProjectCard from "./ProjectCard";
+import useProjectsData from "./useProjectsData";
+import { Section, SectionHeader } from "../ui/section";
 import PillButton from "../PillButton";
+
+type ProjectType = {
+  _id: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  image: any;
+  link?: string;
+  githubLink?: string;
+  youtubeLink?: string;
+  category?: string;
+  featured?: boolean;
+  priority?: number;
+};
 
 function Projects() {
   const { ProjectsData, loading, error } = useProjectsData();
-  const ref = useRef<SwiperRef>(null);
 
   if (loading) {
     return (
-      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center justify-center"
-        >
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
-        </motion.div>
-      </div>
+      <Section id="projects" className="min-h-[60vh]">
+        <div className="flex items-center justify-center flex-1">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+        </div>
+      </Section>
     );
   }
 
   if (error) {
     return (
-      <div className="w-full flex gap-2 flex-col min-h-[60vh] justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
-        <p className="text-red-400">Error loading projects. Please try again later.</p>
-      </div>
+      <Section id="projects">
+        <p className="text-red-400 text-center">
+          Error loading projects. Please try again later.
+        </p>
+      </Section>
     );
   }
 
+  const projects = (ProjectsData as ProjectType[]) || [];
+  const featured = projects.filter((p) => p.featured);
+  const others = projects.filter((p) => !p.featured);
+  const orderedProjects = featured.length > 0 ? [...featured, ...others] : projects;
+
   return (
-    <div className="w-full flex flex-col gap-6 sm:gap-8 min-h-[60vh] justify-center py-20 lg:py-0">
-      
-      {/* Section Header - Full Width */}
-      <div className="w-full px-4 sm:px-5 lg:px-20">
+    <Section id="projects">
+      <SectionHeader
+        title="Projects"
+        subtitle="A few things I've built"
+      />
+
+      {/* Featured Projects */}
+      {featured.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           viewport={{ once: true }}
-          className="flex items-center justify-between"
+          className="mb-12"
         >
-          <h2 className="title text-white">Projects</h2>
-          <div className="hidden lg:flex">
-            <LottieFileBuilder
-              animationData={developer1Json}
-              width={300}
-              height="100%"
-            />
+          <h3 className="text-sm font-semibold text-accent uppercase tracking-wider mb-5">
+            Featured
+          </h3>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {featured.map((project, index) => (
+              <ProjectCard key={project._id} data={project} index={index} />
+            ))}
           </div>
         </motion.div>
-      </div>
+      )}
 
-      {/* Project Quote - Full Width */}
-      <div className="w-full px-4 sm:px-5 lg:px-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="flex flex-col lg:flex-row items-start lg:items-center gap-4 sm:gap-6"
-        >
-          <div className="lg:hidden">
-            <LottieFileBuilder
-              animationData={developer1Json}
-              width="100%"
-              height="100%"
-            />
-          </div>
-          <ProjectsQuote />
-        </motion.div>
-      </div>
-
-      {/* Enhanced Carousel - Full Width */}
+      {/* All Projects */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
         viewport={{ once: true }}
-        className="w-full relative"
       >
-        <Swiper
-          ref={ref}
-          effect="coverflow"
-          centeredSlides={true}
-          slidesPerView={"auto"}
-          coverflowEffect={{
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          className="w-full !px-4 sm:!px-5 !lg:px-20"
-          navigation={{
-            nextEl: ".custom-l-next",
-            prevEl: ".custom-l-prev",
-          }}
-          pagination={{
-            clickable: true,
-            el: ".custom-l-pagination",
-          }}
-          modules={[Navigation, Pagination, EffectCoverflow]}
-          spaceBetween={20}
-          breakpoints={{
-            640: {
-              spaceBetween: 25,
-            },
-            1024: {
-              spaceBetween: 30,
-            },
-          }}
-        >
-          {ProjectsData?.map((project, index) => (
-            <SwiperSlide className="!w-[280px] sm:!w-[320px] lg:!w-[400px] !flex justify-center" key={index}>
-              <ProjectsCard data={project} index={index} />
-            </SwiperSlide>
+        {featured.length > 0 && (
+          <h3 className="text-sm font-semibold text-accent uppercase tracking-wider mb-5">
+            More Work
+          </h3>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {others.map((project, index) => (
+            <ProjectCard key={project._id} data={project} index={index} />
           ))}
-          
-          {/* Enhanced Navigation Buttons */}
-          <div className="hidden lg:flex custom-l-prev absolute hover:scale-110 transition-all duration-300 hover:rotate-180 left-5 lg:left-10 z-10 h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-yellow-500 bg-gray-900/80 backdrop-blur-sm top-1/2 transform -translate-y-1/2">
-            <MdChevronLeft className="text-xl text-yellow-500" />
-          </div>
-
-          <div className="hidden lg:flex custom-l-next absolute hover:scale-110 transition-all duration-300 hover:-rotate-180 right-5 lg:right-10 z-10 h-12 w-12 shrink-0 cursor-pointer items-center justify-center rounded-full border-2 border-yellow-500 bg-gray-900/80 backdrop-blur-sm top-1/2 transform -translate-y-1/2">
-            <MdChevronRight className="text-xl text-yellow-500" />
-          </div>
-        </Swiper>
+        </div>
       </motion.div>
 
-      {/* Mobile Navigation - Full Width */}
-      <div className="w-full flex items-center justify-center gap-4 px-4 sm:px-5 lg:px-20">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="swiper-mobile-button"
-          onClick={() => ref.current?.swiper.slidePrev()}
-        >
-          <MdChevronLeft className="text-white" />
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="swiper-mobile-button"
-          onClick={() => ref.current?.swiper.slideNext()}
-        >
-          <MdChevronRight className="text-white" />
-        </motion.button>
-      </div>
-
-      {/* View More CTA - Full Width */}
+      {/* GitHub CTA */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
         viewport={{ once: true }}
-        className="w-full px-4 sm:px-5 lg:px-20"
+        className="mt-14 text-center"
       >
-        <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-2xl p-4 sm:p-6 border border-yellow-500/20 text-center">
-          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-yellow-500 mb-2">
-            Want to see more projects?
-          </h3>
-          <p className="text-gray-300 text-xs sm:text-sm lg:text-base mb-3 sm:mb-4">
-            Check out my GitHub for more projects and contributions
-          </p>
+        <div className="bg-surface rounded-2xl inline-flex flex-col sm:flex-row items-center gap-4 sm:gap-6 px-6 py-5">
+          <div className="text-left">
+            <h3 className="text-white font-semibold mb-1">Want to see more?</h3>
+            <p className="text-muted text-sm">
+              Check out my GitHub for more projects and contributions.
+            </p>
+          </div>
           <PillButton
             as="a"
             href="https://github.com/YawOtuo"
             target="_blank"
-            variant="tertiary"
-            label="View GitHub Profile"
-            className="inline-flex !w-auto"
+            variant="primary"
+            label="View GitHub"
           />
         </div>
       </motion.div>
-    </div>
+    </Section>
   );
 }
 

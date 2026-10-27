@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import HSButtons from "./Buttons";
 import useNavbar from "../Navbar/useNavbar";
@@ -9,11 +8,11 @@ export default function MobileHeroSection() {
   const { handleLinkClick } = useNavbar();
 
   return (
-    <div className="relative z-20 flex flex-col items-center justify-center text-white  w-full px-4 sm:px-6 py-16 text-center lg:hidden">
+    <div className="lg:hidden flex flex-col items-center text-center w-full px-4 sm:px-6 py-20 pt-28">
       <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
+        initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.5 }}
         className="mb-6"
       >
         <ProfileImage />
@@ -22,64 +21,44 @@ export default function MobileHeroSection() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-        className="mb-4"
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="mb-5"
       >
-        <h1 className="text-4xl sm:text-5xl font-bold leading-tight tracking-tight">
-          <span className="text-white/70 text-lg block mb-3">Hello!</span>
-          <span className="bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
-            I am Yaw Otuo
-          </span>
+        <p className="text-accent font-medium mb-1">Hello, I&apos;m</p>
+        <h1 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+          Yaw Otuo
         </h1>
-        <p className="text-lg sm:text-xl text-gray-300 mt-2">
-          I turn wild ideas into digital reality
+        <p className="text-base text-muted mt-1">
+          Full Stack Developer & AI Enthusiast
         </p>
       </motion.div>
 
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        className="max-w-md mx-auto text-gray-400 text-sm sm:text-base leading-relaxed mb-8"
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="text-sm text-muted max-w-md leading-relaxed mb-6"
       >
-        🚀 Empowering startups with innovative solutions - transforming
-        early-stage ideas into production-ready applications.
+        I turn wild ideas into digital reality — building scalable,
+        production-ready applications for startups.
       </motion.p>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-        className="flex flex-col items-center gap-4 w-full max-w-sm mx-auto"
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-sm"
       >
-        <div className="w-full">
-          <HSButtons
-            variant={"contact"}
-            label="Let's Build Something Epic"
-            onClick={() => handleLinkClick("letstalk")}
-          />
-        </div>
-        <div className="flex gap-4 w-full justify-center">
-          <div className="w-full">
-            <HSButtons
-              onClick={() =>
-                window.open(
-                  "https://docs.google.com/document/d/1RycbOCvFvEHFDmymyK8jx7Bq5XBZU5_MAEzigP9g-Hk/edit#heading=h.5x0d5h95i329",
-                  "_blank"
-                )
-              }
-              variant={"resume"}
-              label="Resume"
-            />
-          </div>
-          <div className="w-full">
-            <HSButtons
-              onClick={() => handleLinkClick("projects")}
-              variant={"secondary"}
-              label="Projects"
-            />
-          </div>
-        </div>
+        <HSButtons
+          variant="contact"
+          label="Let's Talk"
+          onClick={() => handleLinkClick("letstalk")}
+        />
+        <HSButtons
+          variant="secondary"
+          label="Projects"
+          onClick={() => handleLinkClick("projects")}
+        />
       </motion.div>
     </div>
   );

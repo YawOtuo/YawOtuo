@@ -21,7 +21,32 @@ export default defineType({
       name: 'techStack',
       title: 'Tech Stack',
       type: 'array',
-      of: [{ type: 'string' }], // Define an array of strings for tech stack items
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Skill Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'category',
+              title: 'Category',
+              type: 'reference',
+              to: [{ type: 'techCategory' }],
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              subtitle: 'category.name',
+            },
+          },
+        },
+      ],
     }),
   ],
 });

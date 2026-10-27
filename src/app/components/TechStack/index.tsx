@@ -1,185 +1,165 @@
 "use client";
+
 import { motion } from "framer-motion";
-import useAboutData from "../About/useAbout";
+import useAboutData, { TechSkill } from "../About/useAbout";
 import TSPill from "./TSPill";
-import { useState } from "react";
-import PillButton from "../PillButton";
+import { Section, SectionHeader } from "../ui/section";
+
+const fallbackCategoryMap: Record<string, string[]> = {
+  Frontend: ["React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS"],
+  Backend: ["Node.js", "Python", "Django", "FastAPI", "NestJS"],
+  Database: ["MySQL", "PostgreSQL", "Firebase", "Supabase", "MongoDB"],
+  "Tools & Cloud": ["AWS", "Git", "Docker", "Figma", "Postman", "VS Code"],
+};
+
+function isValidSkill(item: unknown): item is TechSkill {
+  return (
+    item !== null &&
+    typeof item === "object" &&
+    item !== undefined &&
+    "name" in item &&
+    typeof (item as TechSkill).name === "string" &&
+    (item as TechSkill).name.trim() !== ""
+  );
+}
+
+function normalizeTechStack(
+  techStack: (string | TechSkill | null | undefined)[] | undefined
+): TechSkill[] {
+  if (!techStack) return [];
+
+  return techStack
+    .filter((item): item is string | TechSkill => item !== null && item !== undefined)
+    .map((item): TechSkill => {
+      if (typeof item === "string") {
+        // Backward compatibility: map string skills to categories
+        for (const [category, skills] of Object.entries(fallbackCategoryMap)) {
+          if (skills.includes(item)) {
+            return { name: item, category: { _id: category, name: category } };
+          }
+        }
+        return { name: item, category: { _id: "Other", name: "Other" } };
+      }
+
+      // Ensure category has a usable name
+      const categoryName =
+        item.category && typeof item.category === "object"
+          ? item.category.name || "Other"
+          : "Other";
+
+      return {
+        name: item.name,
+        category: {
+          _id: item.category?._id || categoryName,
+          name: categoryName,
+          priority: item.category?.priority,
+        },
+      };
+    })
+    .filter(isValidSkill);
+}
+
+function groupByCategory(skills: TechSkill[]) {
+  const grouped: Record<string, TechSkill[]> = {};
+
+  skills.forEach((skill) => {
+    const categoryName = skill.category?.name || "Other";
+    if (!grouped[categoryName]) {
+      grouped[categoryName] = [];
+    }
+    grouped[categoryName].push(skill);
+  });
+
+  return grouped;
+}
+
+function getCategoryOrder(skills: TechSkill[]): string[] {
+  const categories = new Map<string, number>();
+
+  skills.forEach((skill) => {
+    const name = skill.category?.name || "Other";
+    const priority = skill.category?.priority ?? Infinity;
+    if (!categories.has(name)) {
+      categories.set(name, priority);
+    }
+  });
+
+  return Array.from(categories.entries())
+    .sort((a, b) => a[1] - b[1])
+    .map(([name]) => name);
+}
 
 function TechStack() {
   const { aboutData, loading, error } = useAboutData();
-  const [activeCategory, setActiveCategory] = useState('all');
-
-  const techCategories = [
-    { id: 'all', label: 'All Technologies', icon: '🚀' },
-    { id: 'frontend', label: 'Frontend', icon: '🎨' },
-    { id: 'backend', label: 'Backend', icon: '⚙️' },
-    { id: 'database', label: 'Database', icon: '🗄️' },
-    { id: 'tools', label: 'Tools & Cloud', icon: '☁️' },
-  ];
-
-  const categorizedTech = {
-    frontend: ['React', 'Next.js', 'TypeScript', 'JavaScript', 'HTML', 'CSS', 'Tailwind CSS'],
-    backend: ['Node.js', 'Python', 'Django', 'FastAPI', 'NestJS'],
-    database: ['MySQL', 'PostgreSQL', 'Firebase', 'Supabase', 'MongoDB'],
-    tools: ['AWS', 'Git', 'Docker', 'Figma', 'Postman', 'VS Code'],
-  };
-
-  const getFilteredTech = () => {
-    if (activeCategory === 'all') {
-      return aboutData?.techStack || [];
-    }
-    return categorizedTech[activeCategory as keyof typeof categorizedTech] || [];
-  };
-
-  const filteredTech = getFilteredTech();
 
   if (loading) {
     return (
-      <div className="flex gap-2 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="flex items-center justify-center"
-        >
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-yellow-500"></div>
-        </motion.div>
-      </div>
+      <Section id="tech-stack" className="min-h-[60vh]">
+        <div className="flex items-center justify-center flex-1">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+        </div>
+      </Section>
     );
   }
 
   if (error) {
     return (
-      <div className="flex gap-2 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
-        <p className="text-red-400">Error loading tech stack data. Please try again later.</p>
-      </div>
+      <Section id="tech-stack">
+        <p className="text-red-400 text-center">
+          Error loading tech stack data. Please try again later.
+        </p>
+      </Section>
     );
   }
 
+  const normalizedSkills = normalizeTechStack(aboutData?.techStack);
+  const skillsToDisplay =
+    normalizedSkills.length > 0
+      ? normalizedSkills
+      : Object.entries(fallbackCategoryMap).flatMap(([category, skills]) =>
+          skills.map((name) => ({
+            name,
+            category: { _id: category, name: category },
+          }))
+        );
+
+  const grouped = groupByCategory(skillsToDisplay);
+  const categoryOrder = getCategoryOrder(skillsToDisplay);
+
   return (
-    <div className="flex gap-6 sm:gap-8 lg:gap-20 flex-col min-h-[80vh] w-full justify-center py-20 lg:py-0 px-4 sm:px-6 lg:px-20">
-      
-      {/* Section Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-center"
-      >
-        <h2 className="title text-white mb-3 sm:mb-4">Tech Stack</h2>
-        <p className="text-gray-400 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-4">
-          The tools and technologies I use to turn ideas into reality
-        </p>
-      </motion.div>
+    <Section id="tech-stack">
+      <SectionHeader
+        title="Tech Stack"
+        subtitle="The tools and technologies I use to turn ideas into reality"
+      />
 
-      {/* Category Filter Tabs */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 px-4"
-      >
-        {techCategories.map((category) => (
-          <PillButton
-            key={category.id}
-            onClick={() => setActiveCategory(category.id)}
-            variant={activeCategory === category.id ? "primary" : "tertiary"}
-            label={category.label}
-            icon={<span className="text-base sm:text-lg">{category.icon}</span>}
-          />
-        ))}
-      </motion.div>
+      <div className="space-y-10 lg:space-y-14">
+        {categoryOrder.map((category) => {
+          const items = grouped[category];
+          if (!items?.length) return null;
 
-      {/* Tech Stack Grid */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        viewport={{ once: true }}
-        className="w-full px-4"
-      >
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
-          {filteredTech.map((tech: string, index: number) => (
+          return (
             <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 + index * 0.05 }}
+              key={category}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <TSPill data={tech} index={index} />
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-3">
+                <span className="w-2 h-2 rounded-full bg-accent"></span>
+                {category}
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
+                {items.map((tech, index) => (
+                  <TSPill key={tech.name} data={tech.name} index={index} />
+                ))}
+              </div>
             </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Tech Stack Summary */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6 }}
-        viewport={{ once: true }}
-        className="mt-8 sm:mt-12 px-4"
-      >
-        <div className="bg-gray-900/30 backdrop-blur-sm rounded-2xl p-6 sm:p-8 lg:p-12 border border-gray-800/50">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-yellow-500 mb-4 sm:mb-6 text-center">
-            Why This Tech Stack?
-          </h3>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              {
-                icon: "⚡",
-                title: "Performance First",
-                description: "Next.js, React, and optimized databases ensure lightning-fast applications that users love."
-              },
-              {
-                icon: "🛠️",
-                title: "Scalable Architecture",
-                description: "Microservices with FastAPI, NestJS, and cloud-native tools for growth-ready solutions."
-              },
-              {
-                icon: "🎯",
-                title: "Modern & Reliable",
-                description: "TypeScript, modern frameworks, and proven tools for robust, maintainable code."
-              }
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.7 + index * 0.1 }}
-                viewport={{ once: true }}
-                className="text-center p-4 sm:p-6 bg-gray-800/20 rounded-xl border border-gray-700/30 hover:border-yellow-500/30 transition-all duration-300"
-              >
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">{item.icon}</div>
-                <h4 className="text-base sm:text-lg font-semibold text-white mb-2 sm:mb-3">{item.title}</h4>
-                <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Learning Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-        viewport={{ once: true }}
-        className="text-center px-4"
-      >
-        <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 rounded-2xl p-6 sm:p-8 border border-yellow-500/20">
-          <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-yellow-500 mb-3 sm:mb-4">
-            Always Learning, Always Growing
-          </h3>
-          <p className="text-gray-300 text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
-            I&apos;m constantly exploring new technologies and frameworks to stay ahead of the curve. 
-            Currently diving deep into AI/ML integration and advanced cloud architectures.
-          </p>
-        </div>
-      </motion.div>
-    </div>
+          );
+        })}
+      </div>
+    </Section>
   );
 }
 

@@ -46,10 +46,9 @@ export default function NavMobile(props: any) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
             onClick={() => {
-              console.log('Close button clicked');
               setNavMobileMenuStore(false);
             }}
-            className="fixed top-6 right-6 z-[10000] p-2 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:bg-gray-700/50 transition-all duration-300 cursor-pointer"
+            className="fixed top-6 right-6 z-[10000] p-2 rounded-full bg-surface hover:bg-surface-elevated transition-all duration-300 cursor-pointer"
           >
             <svg className="w-6 h-6 text-white pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -68,7 +67,7 @@ export default function NavMobile(props: any) {
             transition={{ delay: 0.3 }}
             className="relative z-10 p-6 text-center"
           >
-            <p className="text-gray-400 text-sm">
+            <p className="text-muted text-sm">
               Let&apos;s build something amazing together
             </p>
           </motion.div>

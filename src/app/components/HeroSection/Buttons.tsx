@@ -13,7 +13,7 @@ const HSButtons = ({ variant = "contact", label, onClick }: ButtonProps) => {
       <PillButton
         label={label}
         onClick={onClick}
-        variant="secondary"
+        variant="primary"
         size="full"
         icon={
           <svg

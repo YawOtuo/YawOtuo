@@ -1,26 +1,36 @@
-// useaboutData.js
+"use client";
 
-"use client"
-import { fetchAboutData } from '@/app/apis';
-import { useEffect, useState } from 'react';
+import { fetchAboutData } from "@/app/apis";
+import { useEffect, useState } from "react";
 
-interface AboutData {
-  techStack?: string[];
-  [key: string]: any;
+export interface TechSkill {
+  name: string;
+  category?: {
+    _id: string;
+    name: string;
+    priority?: number;
+  } | null;
 }
 
-// Custom hook for fetching experience data from Sanity.io
+export interface AboutData {
+  _id: string;
+  generalInfo?: string[];
+  techStack?: (string | TechSkill | null | undefined)[];
+  education?: Array<{
+    _ref: string;
+    _type: "reference";
+  }>;
+}
+
 const useAboutData = () => {
-  const [aboutData, setaboutData] = useState<AboutData | null>(null);
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // Fetch data from Sanity.io using the fetch function
     fetchAboutData()
       .then((data) => {
-        setaboutData(data[0]);
-        console.log(data[0])
+        setAboutData(data[0] || null);
         setLoading(false);
       })
       .catch((error) => {

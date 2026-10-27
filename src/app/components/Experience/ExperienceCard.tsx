@@ -1,17 +1,20 @@
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { LuCompass, LuCalendar, LuMapPin } from "react-icons/lu";
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { LuCalendar, LuMapPin, LuChevronDown } from "react-icons/lu";
+import { formatExperienceDate } from "@/app/lib/date";
 
 type ExperienceType = {
-  logo: string;
-  title: string;
-  position: string;
-  duration: string;
-  company: string;
-  responsibilities?: any;
-  description: any;
-  startDate: any;
-  endDate: any;
+  logo?: string;
+  title?: string;
+  position?: string;
+  duration?: string;
+  company?: string;
+  responsibilities?: string[];
+  description?: string;
+  startDate?: string;
+  endDate?: string;
   location?: string;
   role?: string;
 };
@@ -21,105 +24,108 @@ type Props = {
   index: number;
 };
 
-const Responsibility = ({ text, index }: { text: string; index: number }) => {
-  return (
-    <motion.li
-      initial={{ opacity: 0, x: -10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      viewport={{ once: true }}
-      className="text-gray-300 text-sm lg:text-base flex items-start gap-3"
-    >
-      <span className="text-yellow-500 mt-1">•</span>
-      <span>{text}</span>
-    </motion.li>
-  );
-};
-
 function ExperienceCard({ data, index }: Props) {
-  const isCurrent = data?.endDate === 'Present';
-  
+  const [isExpanded, setIsExpanded] = useState(false);
+  const isCurrent = data?.endDate?.toLowerCase() === "present";
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
       viewport={{ once: true }}
-      className="group cursor-pointer"
+      className="bg-surface rounded-2xl overflow-hidden hover:bg-surface-elevated transition-colors duration-300"
     >
-      <div className="bg-gray-900/30 backdrop-blur-sm rounded-2xl p-6 lg:p-8 border border-gray-800/50 hover:border-yellow-500/30 transition-all duration-300 hover:shadow-xl hover:shadow-yellow-500/10">
-        
-        {/* Header */}
-        <div className="flex flex-col gap-4 mb-6">
-          {/* Company and Position */}
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center border border-yellow-500/30">
-              <LuCompass className="text-yellow-500" size={24} />
-            </div>
-            <div className="flex-1">
-              <h3 className="text-lg lg:text-xl font-bold text-white mb-1">
-                {data?.role || data?.title}
-              </h3>
-              <p className="text-yellow-500 font-semibold text-base">
-                @ {data?.company}
-              </p>
-            </div>
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="w-full text-left p-6 lg:p-8"
+      >
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+          <div>
+            <h3 className="text-lg lg:text-xl font-bold text-white mb-1">
+              {data?.role || data?.title || "Role"}
+            </h3>
+            <p className="text-accent font-semibold">
+              {data?.company ? `@ ${data.company}` : ""}
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
             {isCurrent && (
-              <span className="px-3 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full border border-green-500/30">
+              <span className="px-3 py-1 bg-green-500/15 text-green-400 text-xs font-medium rounded-full">
                 Current
               </span>
             )}
+            <motion.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+              className="text-muted-foreground"
+            >
+              <LuChevronDown size={20} />
+            </motion.div>
           </div>
+        </div>
 
-          {/* Duration and Location */}
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-400">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2">
+            <LuCalendar className="text-accent" size={15} />
+            <span>
+              {formatExperienceDate(data?.startDate || "")} - {formatExperienceDate(data?.endDate || "")}
+            </span>
+          </div>
+          {data?.location && (
             <div className="flex items-center gap-2">
-              <LuCalendar className="text-yellow-500" size={16} />
-              <span>{data?.startDate} - {data?.endDate}</span>
+              <LuMapPin className="text-accent" size={15} />
+              <span>{data.location}</span>
             </div>
-            {data?.location && (
-              <div className="flex items-center gap-2">
-                <LuMapPin className="text-yellow-500" size={16} />
-                <span>{data?.location}</span>
-              </div>
-            )}
-          </div>
+          )}
         </div>
 
-        {/* Description */}
         {data?.description && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            viewport={{ once: true }}
-            className="text-gray-300 text-sm lg:text-base leading-relaxed mb-6"
+          <p className="text-muted text-sm lg:text-base leading-relaxed mt-4 line-clamp-2">
+            {data.description}
+          </p>
+        )}
+
+        <p className="text-accent text-sm font-medium mt-4">
+          {isExpanded ? "Show less" : "View details"}
+        </p>
+      </button>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
           >
-            {data?.description}
-          </motion.p>
-        )}
+            <div className="px-6 lg:px-8 pb-6 lg:pb-8 pt-2">
+              {data?.responsibilities && data.responsibilities.length > 0 && (
+                <ul className="space-y-3">
+                  {data.responsibilities.map((responsibility, idx) => (
+                    <li
+                      key={idx}
+                      className="text-muted text-sm lg:text-base flex items-start gap-3"
+                    >
+                      <span className="text-accent mt-1.5">•</span>
+                      <span>{responsibility}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
 
-        {/* Responsibilities */}
-        {data?.responsibilities && data.responsibilities.length > 0 && (
-          <div className="space-y-3">
-            <h4 className="text-white font-semibold text-sm lg:text-base mb-3">
-              Key Responsibilities & Achievements:
-            </h4>
-            <ul className="space-y-2">
-              {data.responsibilities.map((responsibility: string, idx: number) => (
-                <Responsibility key={idx} text={responsibility} index={idx} />
-              ))}
-            </ul>
-          </div>
+              {data?.duration && (
+                <div className="mt-5">
+                  <span className="inline-block px-3 py-1 bg-surface-elevated text-muted-foreground text-xs font-medium rounded-full">
+                    {data.duration}
+                  </span>
+                </div>
+              )}
+            </div>
+          </motion.div>
         )}
-
-        {/* Duration Badge */}
-        <div className="mt-6 pt-4 border-t border-gray-800/50">
-          <span className="inline-block px-3 py-1 bg-gray-800/50 text-gray-300 text-xs font-medium rounded-full">
-            {data?.duration}
-          </span>
-        </div>
-      </div>
+      </AnimatePresence>
     </motion.div>
   );
 }

@@ -8,9 +8,9 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20",
-        secondary: "border border-yellow-500/30 bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20",
-        tertiary: "bg-transparent text-white hover:text-gray-200 border border-white/20 hover:border-white/40"
+        primary: "bg-accent text-black hover:bg-accent-hover",
+        secondary: "bg-accent-subtle text-accent hover:bg-accent/20",
+        tertiary: "bg-surface text-white hover:bg-surface-elevated"
       },
       size: {
         default: "w-fit whitespace-nowrap",
