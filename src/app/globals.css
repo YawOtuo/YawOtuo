@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 :root {
+  --font-montserrat: 'Montserrat', system-ui, sans-serif;
   --background: #020213;
   --surface: rgba(255, 255, 255, 0.04);
   --surface-elevated: rgba(255, 255, 255, 0.08);
